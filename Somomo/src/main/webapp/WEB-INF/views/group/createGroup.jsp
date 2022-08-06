@@ -212,7 +212,7 @@
 
                     <div class="button-area">
                         <button type="reset">취소</button>
-                        <button class="" type="submit">완료</button>
+                        <button class="" type="submit" onclick="setDefaultImg();">완료</button>
                     </div>
                 </form>
 

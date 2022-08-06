@@ -105,7 +105,7 @@
                 <c:forEach var="g" items="${list}">
                 	<div class="group">
 	                    <div class="group-img">
-	                        <img src="resources/img/food.jpeg" alt="그룹대표이미지">
+	                        <img src="${g.groupImg}" alt="그룹대표이미지">
 	                    </div>
 	                    <div class="group-element">
 	                        <div class="group-name">
