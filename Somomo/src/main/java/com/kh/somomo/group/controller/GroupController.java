@@ -23,7 +23,7 @@ public class GroupController {
 	
 	@RequestMapping("list.gr")
 	public ModelAndView selectList(ModelAndView mv, String count) {
-		mv.addObject("list",groupService.selectList()).setViewName("group/community");
+		mv.addObject("list",groupService.selectList()).addObject("manageList",groupService.manageGroup()).setViewName("group/community");
 		return mv;
 	}
 	
@@ -36,7 +36,7 @@ public class GroupController {
 	@RequestMapping("insert.gr")
 	public String insertGroup(GroupRoom gr, GroupMember gm, Model model, HttpSession session){
 		int result = groupService.insertGroup(gr);
-		int result2= groupService.insertMember(gm);
+		int result2 = groupService.insertMember(gm);
 		
 		if(result>0) {
 			return "redirect:list.gr";

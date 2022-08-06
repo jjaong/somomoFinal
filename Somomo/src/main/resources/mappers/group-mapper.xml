@@ -24,11 +24,6 @@
 		order by group_date desc
 	</select>
 	
-	<select id="selectGroup" resultMap="groupResultSet">
-		select * 
-		from group_room
-		where group_no = #{groupNo}
-	</select>
 	
 	<insert id="insertGroup" parameterType="groupRoom">
 		insert 
@@ -80,6 +75,15 @@
 		left join group_member m on(r.group_no=m.group_no)
 		group by r.group_no
 		order by r.group_no desc
+	</select>
+	
+	
+	
+	<select id="manageGroup" resultMap="groupResultSet">
+		select group_no, group_img, group_name from group_room
+		join group_member using(group_no)
+		where user_rank ='A'
+		order by group_no desc
 	</select>
 	
 </mapper>

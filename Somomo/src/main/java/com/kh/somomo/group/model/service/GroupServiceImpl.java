@@ -39,6 +39,11 @@ public class GroupServiceImpl implements GroupService{
 		return groupDao.memberCount(sqlSession, count);
 	}
 
+	@Override
+	public ArrayList<GroupRoom> manageGroup() {
+		return groupDao.manageGroup(sqlSession);
+	}
+
 	
 	
 }
