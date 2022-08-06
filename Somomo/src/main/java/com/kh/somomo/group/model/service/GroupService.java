@@ -20,6 +20,9 @@ public interface GroupService {
 	//멤버 수 세기
 	int memberCount(String count);
 	
+	//관리 그룹방 리스트
+	ArrayList<GroupRoom> manageGroup();
+	
 	
 		
 }

@@ -70,10 +70,12 @@
     
             <div class="nav-col">
                 <h2>관리중인그룹</h2>
-                <div>
-                    <img src="resources/img/peach3.jpeg" alt="">
-                    <span>KH - 모2조</span>
-                </div>
+                <c:forEach var="g" items="${manageList}">
+	                <div>
+	                    <img src="${g.groupImg}" alt="">
+	                    <span>${g.groupName}</span>
+	                </div>
+                </c:forEach>
                 <div class="horizontal"></div>
     
                 <h2>가입한 그룹</h2>

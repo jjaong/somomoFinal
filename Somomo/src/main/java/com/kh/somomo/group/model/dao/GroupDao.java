@@ -27,5 +27,9 @@ public class GroupDao {
 	public int memberCount(SqlSessionTemplate sqlSession, String count) {
 		return sqlSession.insert("groupMapper.memberCount", count);
 	}
+
+	public ArrayList<GroupRoom> manageGroup(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("groupMapper.manageGroup");
+	}
 	
 }
