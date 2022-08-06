@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.somomo.group.model.vo.GroupBoard;
+import com.kh.somomo.group.model.vo.GroupMember;
 import com.kh.somomo.group.model.vo.GroupRoom;
 
 @Repository
@@ -15,13 +16,16 @@ public class GroupDao {
 		return (ArrayList)sqlSession.selectList("groupMapper.selectList");
 	}
 
-	public GroupRoom selectGroup(SqlSessionTemplate sqlSession, int groupNo) {
-		return sqlSession.selectOne("groupMapper.selectGroup", groupNo);
-	}
-
 	public int insertGroup(SqlSessionTemplate sqlSession, GroupRoom gr) {
 		return sqlSession.insert("groupMapper.insertGroup", gr);
 	}
-	
+
+	public int insertMember(SqlSessionTemplate sqlSession, GroupMember gm) {
+		return sqlSession.insert("groupMapper.insertGroupMember",gm);
+	}
+
+	public int memberCount(SqlSessionTemplate sqlSession, String count) {
+		return sqlSession.insert("groupMapper.memberCount", count);
+	}
 	
 }

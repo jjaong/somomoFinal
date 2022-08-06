@@ -74,17 +74,6 @@
                     <img src="resources/img/peach3.jpeg" alt="">
                     <span>KH - 모2조</span>
                 </div>
-    
-                <div>
-                    <img src="resources/img/food.jpeg" alt="">
-                    <span>오늘의 맛집</span>
-                </div>
-    
-                <div>
-                    <img src="resources/img/study.png" alt="">
-                    <span>알고리thm</span>
-                </div>
-    
                 <div class="horizontal"></div>
     
                 <h2>가입한 그룹</h2>
@@ -99,7 +88,7 @@
                 </div>
             </div>
         </nav>
-
+		
         <main class="content">
             <div class="list-outer">
                 <c:forEach var="g" items="${list}">
@@ -112,9 +101,16 @@
 	                            <span>${g.groupName}</span>
 	                        </div>
 	                        <div class="group-info">
-	                            <span>멤버 128명</span>
+	                            <span>멤버</span>
 	                            <span>|</span>
-	                            <span>공개</span>
+	                            <c:choose>
+	                            	<c:when test="${g.groupType eq 'A'}">
+	                            		<span>공개</span>
+	                            	</c:when>
+	                            	<c:otherwise>
+	                            		<span>비공개</span>
+	                            	</c:otherwise>
+	                            </c:choose>
 	                        </div>
 	                        <div class="group-btn">
 	                            <button>그룹 가입</button>

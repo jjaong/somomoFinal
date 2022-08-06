@@ -50,6 +50,7 @@
             <div>
                 <form action="insert.gr" enctype="multipart/form-data" method="post">
                 	<input type="hidden" name="userId" value="${loginUser.userId}">
+                	<input type="hidden" name="userRank" value="A">
                     <div class="category-sheet">
                         <label for="regionNo">지역 선택</label>
                         <select name="regionNo" id="regionNo">

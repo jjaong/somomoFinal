@@ -12,12 +12,17 @@
 		<result column="GROUP_DATE" property="groupDate"/>
 	</resultMap>
 	
+	<resultMap id="memberResultSet" type="groupMember">
+		<result column="GROUP_NO" property="groupNo"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="USER_RANK" property="userRank"/>
+	</resultMap>
+	
 	<select id="selectList" resultMap="groupResultSet">
 		select group_no, group_name, group_img, group_type, group_date
 		from group_room
 		order by group_date desc
 	</select>
-	
 	
 	<select id="selectGroup" resultMap="groupResultSet">
 		select * 
@@ -51,5 +56,30 @@
 				)
 	
 	</insert>
+	
+	<insert id="insertGroupMember" parameterType="groupMember">
+		insert 
+			into group_member
+				(
+				group_no,
+				user_id,
+				user_rank
+				)
+			values
+				(
+				seq_gno.currval,
+				#{userId},
+				#{userRank}
+				)
+	
+	</insert>
+	
+	<select id="memberCount" resultType="_int">
+		select count(m.group_no)
+		from group_room r
+		left join group_member m on(r.group_no=m.group_no)
+		group by r.group_no
+		order by r.group_no desc
+	</select>
 	
 </mapper>
