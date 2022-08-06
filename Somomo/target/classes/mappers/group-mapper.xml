@@ -19,4 +19,37 @@
 	</select>
 	
 	
+	<select id="selectGroup" resultMap="groupResultSet">
+		select * 
+		from group_room
+		where group_no = #{groupNo}
+	</select>
+	
+	<insert id="insertGroup" parameterType="groupRoom">
+		insert 
+			into group_room
+				(
+				group_no,
+				region_no,
+				category_no,
+				group_name,
+				group_img,
+				group_detail,
+				group_type,
+				group_date
+				)
+			values
+				(
+				seq_gno.nextval,
+				#{regionNo},
+				#{categoryNo},
+				#{groupName},
+				#{groupImg},
+				#{groupDetail},
+				#{groupType},
+				sysdate
+				)
+	
+	</insert>
+	
 </mapper>
