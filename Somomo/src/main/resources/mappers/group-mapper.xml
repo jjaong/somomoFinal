@@ -66,7 +66,17 @@
 				#{userId},
 				#{userRank}
 				)
+	</insert>
 	
+	<insert id="insertCalendar">
+		INSERT
+		  INTO
+		       GROUP_CALENDAR
+		VALUES
+			   (
+			   SEQ_GCDNO.NEXTVAL,
+			   SEQ_GNO.CURRVAL
+			   )		 
 	</insert>
 	
 	<select id="memberCount" resultType="_int">
@@ -77,13 +87,23 @@
 		order by r.group_no desc
 	</select>
 	
-	
-	
 	<select id="manageGroup" resultMap="groupResultSet">
 		select group_no, group_img, group_name from group_room
 		join group_member using(group_no)
 		where user_rank ='A'
 		order by group_no desc
+	</select>
+	
+	<select id="getGroupNo" resultType="int">
+		SELECT last_number - 1
+	      FROM user_sequences
+	     where sequence_name = 'SEQ_GNO'
+	</select>
+	
+	<select id="selectGroup" parameterType="_int" resultMap="groupResultSet">
+		SELECT GROUP_NO, REGION_NO, CATEGORY_NO, GROUP_NAME, GROUP_IMG, GROUP_DETAIL, GROUP_TYPE, GROUP_DATE
+  	      FROM GROUP_ROOM
+ 	     WHERE GROUP_NO = #{groupNo}
 	</select>
 	
 </mapper>

@@ -26,12 +26,17 @@ public class GroupServiceImpl implements GroupService{
 
 	@Override
 	public int insertGroup(GroupRoom gr) {
-		return groupDao.insertGroup(sqlSession,gr);
+		return groupDao.insertGroup(sqlSession, gr);
 	}
-
+	
 	@Override
 	public int insertMember(GroupMember gm) {
-		return groupDao.insertMember(sqlSession,gm);
+		return groupDao.insertMember(sqlSession, gm);
+	}
+	
+	@Override
+	public int insertCalendar() {
+		return groupDao.insertCalendar(sqlSession);
 	}
 
 	@Override
@@ -42,6 +47,16 @@ public class GroupServiceImpl implements GroupService{
 	@Override
 	public ArrayList<GroupRoom> manageGroup() {
 		return groupDao.manageGroup(sqlSession);
+	}
+	
+	@Override
+	public GroupRoom selectGroup(int groupNo) {
+		return groupDao.selectGroup(sqlSession, groupNo);
+	}
+	
+	@Override
+	public int getGroupNo() {
+		return groupDao.getGroupNo(sqlSession);
 	}
 
 	

@@ -9,18 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!----------- CSS --------------->
-    <link rel="stylesheet" href="resources/css/style2.css">
+    <link rel="stylesheet" href="resources/css/style2.css?ver=1.0.0">
     <!----------- 아이콘 CSS 링크 ------->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <script src="https://kit.fontawesome.com/567fbbaed5.js" crossorigin="anonymous"></script>
     <!----------- 아이콘 CSS 링크 version 2------->
     <!-- Boxicons CSS -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <title>소모모</title> 
+    <title>소모모 - ${gr.groupName}</title> 
 </head>
 <body>
 
@@ -31,7 +29,7 @@
             <header>
                 <div class="logo-name">
                     <div class="logo-image">
-                        <img src="../src/img/logo.jpg" alt="">
+                        <img src="resources/img/web_logo.jpg" alt="">
                     </div>
                     <span class="logo_name">SoMoMo</span>
                 </div>
@@ -90,17 +88,18 @@
         <div class="main-left">
             <div class="group-profile">
                 <div class="main-images">
-                    <a href=""><img src="../src/img/study.png"></a>
+                    <a href=""><img src="${gr.groupImg }"></a>
                 </div>
                 <div class="profile-details">
-                  <span class="group-name"><strong>JAVASCRIPT</strong></span>
-                  <p>자바 스크립트 연구 개발하는 모임입니다. 제발 자바개발자 오지 마세요</p>
+                  <span class="group-name"><strong>${gr.groupName}</strong></span>
+                  <p>${gr.groupDetail}</p>
                 
                 </div>
                 <div class="profile-member">      
-                    <span class="profile-member-number">멤버: 3명</span>
+                    <span class="profile-member-number">멤버: ??명</span>
 
                     <a href=""><span class="profile-member-setting">
+                    	<!-- 방장인경우에만 그룹 설정 버튼 활성화 -->
                         <i class="uil uil-cog"></i>그룹 설정</span>
                       </a>
                       
@@ -310,6 +309,6 @@
 
 
 
-    <script src="GroupDetail.js"></script>
+    <script src="resources/js/GroupDetail.js"></script>
 </body>
 </html>

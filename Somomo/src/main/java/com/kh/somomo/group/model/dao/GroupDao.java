@@ -23,6 +23,10 @@ public class GroupDao {
 	public int insertMember(SqlSessionTemplate sqlSession, GroupMember gm) {
 		return sqlSession.insert("groupMapper.insertGroupMember",gm);
 	}
+	
+	public int insertCalendar(SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("groupMapper.insertCalendar");
+	}
 
 	public int memberCount(SqlSessionTemplate sqlSession, String count) {
 		return sqlSession.insert("groupMapper.memberCount", count);
@@ -30,6 +34,14 @@ public class GroupDao {
 
 	public ArrayList<GroupRoom> manageGroup(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("groupMapper.manageGroup");
+	}
+
+	public int getGroupNo(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("groupMapper.getGroupNo");
+	}
+
+	public GroupRoom selectGroup(SqlSessionTemplate sqlSession, int groupNo) {
+		return sqlSession.selectOne("groupMapper.selectGroup", groupNo);
 	}
 	
 }

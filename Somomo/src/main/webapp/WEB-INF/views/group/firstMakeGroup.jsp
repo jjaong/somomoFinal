@@ -28,7 +28,7 @@
             <header>
                 <div class="logo-name">
                     <div class="logo-image">
-                        <img src="../src/img/logo.jpg" alt="">
+                        <img src="/src/img/logo.jpg" alt="">
                     </div>
                     <span class="logo_name">SoMoMo</span>
                 </div>

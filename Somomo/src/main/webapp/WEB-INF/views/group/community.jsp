@@ -26,7 +26,7 @@
             <header>
                 <div class="logo-name">
                     <div class="logo-image">
-                        <a href="index.html"><img src="resources/img/logo.jpg" alt=""></a>
+                        <a href="main.jsp"><img src="resources/img/logo.jpg" alt=""></a>
                         
                     </div>
                     <span class="logo_name">SoMoMo</span>
@@ -87,6 +87,9 @@
                 <div>
                     <img src="resources/img/kh.jpeg" alt="">
                     <span>KH정보교육원</span>
+                </div>
+                <div>
+                	<a href="test.do">테스트</a>
                 </div>
             </div>
         </nav>
