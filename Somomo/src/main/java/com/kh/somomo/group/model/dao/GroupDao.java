@@ -15,6 +15,10 @@ public class GroupDao {
 	public ArrayList<GroupRoom> selectList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("groupMapper.selectList");
 	}
+	
+	public ArrayList<GroupRoom> myGroupList(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("groupMapper.myGroupList", userId);
+	}
 
 	public int insertGroup(SqlSessionTemplate sqlSession, GroupRoom gr) {
 		return sqlSession.insert("groupMapper.insertGroup", gr);
@@ -28,20 +32,16 @@ public class GroupDao {
 		return sqlSession.insert("groupMapper.insertCalendar");
 	}
 
-	public int memberCount(SqlSessionTemplate sqlSession, String count) {
-		return sqlSession.insert("groupMapper.memberCount", count);
-	}
-
-	public ArrayList<GroupRoom> manageGroup(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("groupMapper.manageGroup");
-	}
-
 	public int getGroupNo(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("groupMapper.getGroupNo");
 	}
 
 	public GroupRoom selectGroup(SqlSessionTemplate sqlSession, int groupNo) {
 		return sqlSession.selectOne("groupMapper.selectGroup", groupNo);
+	}
+
+	public ArrayList<GroupMember> selectMemberList(SqlSessionTemplate sqlSession, int groupNo) {
+		return (ArrayList)sqlSession.selectList("groupMapper.selectMemberList", groupNo);
 	}
 	
 }

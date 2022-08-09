@@ -16,7 +16,7 @@ public interface MemberService {
 	// 닉네임 중복체크
 	int NickNameCheck(String checkNickName);
 
-	// sms문자인증
+	// sms문자인증ㄴ
 	void certifiedPhoneNumber(String userPhoneNumber, int randomNumber);
-	
+
 }

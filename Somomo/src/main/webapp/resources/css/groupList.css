@@ -2,24 +2,39 @@
 section{
     display: flex;
     height: 100vh;
+    background-color: #f7f8fc;
 }
 
-/* 왼쪽 사이드바 */
+/* ----------------------- 왼쪽 사이드바-------------------- */
 nav{
+    position: fixed;
+    top: 66px;
+    overflow: auto;
     min-width: 250px;
     height: 100%;
     border-right: 1px solid var(--border-color);
     margin-left: 10%;
+    background-color: var(--white-color);
 }
 
 nav>div{
     padding: 10px;
+    
 }
 
 .nav-col h2{
-    margin-bottom: 5px;
-    color: var(--black-light-color);
+    margin-bottom: 10px;
+    font-size: 16px;
 }
+
+.nav-title{
+  font-size: 30px;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+
+
 
 .nav-col-group{
     border-radius: 10px;
@@ -28,28 +43,16 @@ nav>div{
     color: var(--black-light-color);
 }
 
-.nav-col-group:hover{
-    background-color: var(--theme-color);
-    cursor: pointer;
-    color: white;
-}
-
 .create-newGroup{
     margin-top: 20px;
     display: flex;
     justify-content: center;
     padding: 10px;
     border-radius: 10px;
-    background-color: var(--theme-color);
+    background-color: rgb(255, 240, 239);
 }
 
-.create-newGroup a{
-    color: white;
-}
-.create-newGroup:hover{
-    opacity: 0.7;
-    cursor: pointer;
-}
+
 
 .horizontal{
     margin: 10px 0;
@@ -59,8 +62,8 @@ nav>div{
 
 .nav-col img{
     padding: 5px;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 10px;
 }
 
@@ -69,58 +72,135 @@ nav>div{
     align-items: center;
 }
 
-.nav-col div:hover{
-    background-color: var(--theme-color);
-    border-radius: 10px;
-    color: white;
-    transition: var(--tran-02);
+.nav-col-group {
+    position: relative;
+    padding: 0;
+}
+
+.nav-join-group {
+    position: relative;
+    padding: 3px;
 }
 
 .nav-col div span{
     margin-left: 10px;
+    color: black;
+    font-weight: 550;
 }
 
+
+
+
+/* ------------------------------------------------- */
 .content{
     display: flex;
     margin-right: 10%;
+    margin-left: 26%;
     padding: 30px;
     width: 100%;
+    height: 100%;
 }
 
-.list-outer{
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-}
-
-.group{
-    width: 250px;
-    height: 230px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-    border-radius: 10%;
-    overflow: hidden;
-    cursor: pointer;
-    margin: 10px;
-}
-
-.group-img img{
-    width: 250px;
-    height: 130px;    
-}
-
-.group-element{
+.list-outer {
     display: flex;
     flex-direction: column;
-    padding: 5px 10px;
+  }
+
+.group-outer{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
-.group-name{
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
+.tag-group{
+  margin-left: 5px;
+  width: 100%;
+  height: 40px;
+}
+
+.tag-body {
+    width: 100%;
+    display: flex;
+    height: 40px;
+    align-items: center;
+}
+
+.tag-group .tag-body li {
+  display: flex;
+  width: 90px;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 8px 1px;
+  font-size: 14px;
+  border : 2px solid rgb(228, 226, 226);
+  margin: 5px;
+  cursor: pointer;
+}
+
+.tag-group .tag-body li:hover{
+    background-color: var(--toggle-color);
+    transition: var(--tran-02);
+  }
+
+  .group {
+    margin: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    width: 280px;
+    height: 350px;
+  }
+  .group-header img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  .group-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  .tag {
+    background: #cccccc;
+    border-radius: 50px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: #fff;
+    padding: 2px 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .tag-development {
+    background-color: #47bcd4;
+  }
+  .tag-trip {
+    background-color: #5e76bf;
+  }
+  .tag-exercise {
+    background-color: #cd5b9f;
+  }
+
+  .group-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 26px;
+    padding: 0 ;
+    font-size: 13px;
+}
+
+.group-member::after {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: #a8a5a5;
 }
 
 .group-btn{
@@ -128,7 +208,7 @@ nav>div{
     justify-content: center;
     align-items: center;
     height: 40px;
-    padding: 0 10px;
+    width: 100%;
 }
 
 .group-btn button{

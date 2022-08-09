@@ -15,6 +15,7 @@
 		background-color : #f3f6fd;
 		position : relative;
 	}
+
 	.form{
 		background-color : white;
 		border : 1px solid lightgrey; 
@@ -228,6 +229,7 @@
 		function checkEmail(){
 			const $email = $('#enrollForm input[name=email]');
 			var RegEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
 			if($email.val()!=""){
 				//표현식에 맞지않는 이메일일 경우
 				if(!RegEmail.test($email.val())){
@@ -248,6 +250,7 @@
 		// 아이디 중복체크
 		$(function(){
 			const $idInput = $('#enrollForm input[name=userId]');
+
 			$idInput.keyup(function(){
 				if($idInput.val().length >= 5){
 					$.ajax({
@@ -370,9 +373,7 @@
 			})
 						
 		}
-		
 	</script>
-
 
 </body>
 </html>

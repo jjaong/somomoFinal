@@ -21,14 +21,13 @@
 </head>
 <body>
 
-<!--------------------- 헤더 ------------------------>
-
+    <!--------------------- 헤더 ------------------------>
     <div class="wrapper">
         <div>
             <header>
                 <div class="logo-name">
                     <div class="logo-image">
-                        <img src="../src/img/logo.jpg" alt="">
+                        <img src="resources/img/web_logo.jpg" alt="">
                     </div>
                     <span class="logo_name">SoMoMo</span>
                 </div>
@@ -51,14 +50,8 @@
         </div>
     </div>
 
-
-
     <!----------------------- 메인 컨텐츠 ------------------------------>
-
-
     <div class="main-section">
-
-
         <!-------------------- 메인 컨텐츠 헤더 --------------------->
         <div class="main-header-container">
             <div class="main-header">
@@ -78,121 +71,99 @@
                 </ul>
             </div>
         </div>
-          <!-------------------- 메인 컨텐츠 헤더 끝--------------------->
 
-
-
-
-
+        <!-------------------- 메인 컨텐츠 헤더 끝--------------------->
         <div class="main-left">
             <div class="group-profile">
                 <div class="main-images">
-                    <a href=""><img src="../src/img/study.png"></a>
+                    <a href=""><img src="${gr.groupImg}"></a>
                 </div>
                 <div class="profile-details">
-                  <span class="group-name"><strong>JAVASCRIPT</strong></span>
-                  <p>자바 스크립트 연구 개발하는 모임입니다. 제발 자바개발자 오지 마세요</p>
+                    <span class="group-name"><strong>${gr.groupName}</strong></span>
+                    <p>${gr.groupDetail}</p>
                 
                 </div>
                 <div class="profile-member">      
-                    <span class="profile-member-number">멤버: 3명</span>
+                    <span class="profile-member-number">멤버: ${gr.memberCount}명</span>
 
                     <a href=""><span class="profile-member-setting">
-                      <i class="uil uil-cog"></i>그룹 설정</span>
+                        <i class="uil uil-cog"></i>그룹 설정</span>     
                     </a>
                 </div>
                 <div class="profile-button">
-                  <div class="button-layer"></div>
-                  <button>글쓰기</button>
+                    <div class="button-layer"></div>
+                    <button>글쓰기</button>
                 </div>
-              </div>
-
+            </div>    
         </div>
 
+        <!------------------ 그룹 설정 ---------------------->
         <div class="main-middle">
-
-            <!------------------ 그룹 설정 ---------------------->
             <div class="setting">
+                <div class="setting-title">
+                    <h3>그룹 설정</h3>
+                </div>
 
-            <div class="setting-title"><h3>그룹 설정</h3>
+                <div class="setting-container">
+                    <ul class="setting-list">
+                        <li class="setting-item">
+                            <div class="itemContent">
+                                <span class="label">그룹 이름 및 커버</span>
+                            </div>
+                            <div class="itemSide">
+                                <a href="">
+                                    변경
+                                </a>
+                            </div>
+                        </li>
+                        <li class="setting-item">
+                            <div class="itemContent">
+                                <span class="label">그룹 공개</span>
+                                <span class="label-data">공개</span>
+                            </div>
+                            <div class="itemSide">
+                                <a href="">
+                                    변경
+                                </a>
+                            </div>
+                        </li>
+                        <li class="setting-item">
+                            <div class="itemContent">
+                                <span class="label">그룹 탈퇴</span>
+                            </div>
+                            <div class="itemSide delete">
+                                <a href="">
+                                    탈퇴하기
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
-
-            <div class="setting-container">
-
-                <ul class="setting-list">
-                    <li class="setting-item">
-                        <div class="itemContent">
-                            <span class="label">그룹 이름 및 커버</span>
-                        </div>
-                        <div class="itemSide">
-                            <a href="">
-                                변경
-                            </a>
-                        </div>
-                    </li>
-                    <li class="setting-item">
-                        <div class="itemContent">
-                            <span class="label">그룹 공개</span>
-                            <span class="label-data">공개</span>
-                        </div>
-                        <div class="itemSide">
-                            <a href="">
-                                변경
-                            </a>
-                        </div>
-                    </li>
-                    <li class="setting-item">
-                        <div class="itemContent">
-                            <span class="label">그룹 탈퇴</span>
-                        </div>
-                        <div class="itemSide delete">
-                            <a href="">
-                                탈퇴하기
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-  
             
-                
-                <!---------------------- Modal 창 --------------------->
+            <!---------------------- Modal 창 --------------------->
+            <div class="popup-outer">
+                <div class="popup-box">
+                    <i id="close" class='bx bx-x close'></i>
+                    <div class="write-form-header">
+                        <h1 class="write-form-title">글쓰기</h1>
+                    </div>
+                    <div class="textarea">
+                        <textarea rows="15" id="content" placeholder="새로운 소식을 남겨보세요"></textarea>
+                    </div>
 
+                    <ul class="toolbarList">
+                        <li><input type="file"><i class='bx bx-photo-album'></i></li>
+                    </ul>
 
-                <div class="popup-outer">
-                    <div class="popup-box">
-                      <i id="close" class='bx bx-x close'></i>
-                        <div class="write-form-header">
-                           <h1 class="write-form-title">글쓰기</h1>
-                        </div>
-                        <div class="textarea">
-                            <textarea rows="15" id="content" placeholder="새로운 소식을 남겨보세요"></textarea>
-                        </div>
-
-                        <ul class="toolbarList">
-                            <li><input type="file"><i class='bx bx-photo-album'></i></li>
-                        </ul>
-
-                        <div class="button">
-                            <button id="close" class="send">게시</button>
-                        </div>
-                       
+                    <div class="button">
+                        <button id="close" class="send">게시</button>
                     </div>
                 </div>
-      
-
-          
-
+            </div>
         </div>
-
-
-
-
-
         <!------------------ 메인 컨텐츠 오른쪽 -------------->
-
 
         <div class="main-right">
             <div class="banner">
@@ -201,7 +172,6 @@
                     <div class="memberWrap">
                         <a href="">모두보기</a>
                     </div>
-
                 </div>
 
                 <div class="member-list">
@@ -239,21 +209,7 @@
                     </ul>
                 </div>
             </div>
-
-
-
-
-
-
         </div>
-
-
-
-
-
-
     </div>
-
-
 </body>
 </html>

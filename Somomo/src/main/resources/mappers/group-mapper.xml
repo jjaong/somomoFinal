@@ -10,59 +10,96 @@
 		<result column="GROUP_DETAIL" property="groupDetail"/>
 		<result column="GROUP_TYPE" property="groupType"/>
 		<result column="GROUP_DATE" property="groupDate"/>
+		<result column="MEMBER_COUNT" property="memberCount"/>
+		<result column="USER_RANK" property="userRank"/>
 	</resultMap>
 	
 	<resultMap id="memberResultSet" type="groupMember">
 		<result column="GROUP_NO" property="groupNo"/>
 		<result column="USER_ID" property="userId"/>
 		<result column="USER_RANK" property="userRank"/>
+		<result column="NICKNAME" property="nickname"/> 
 	</resultMap>
 	
 	<select id="selectList" resultMap="groupResultSet">
-		select group_no, group_name, group_img, group_type, group_date
-		from group_room
-		order by group_date desc
+		SELECT 
+			   R.GROUP_NO, 
+			   GROUP_NAME, 
+			   GROUP_IMG, 
+			   GROUP_TYPE, 
+			   GROUP_DATE, 
+			   COUNT(M.GROUP_NO) MEMBER_COUNT
+  		  FROM 
+  		       GROUP_ROOM R
+  		  LEFT 
+  		  JOIN 
+  		       GROUP_MEMBER M 
+  		    ON
+  		       (R.GROUP_NO = M.GROUP_NO)
+ 		 GROUP 
+ 		    BY 
+ 		       R.GROUP_NO, GROUP_NAME, GROUP_IMG, GROUP_TYPE, GROUP_DATE
+ 		 ORDER 
+ 		    BY 
+ 		       GROUP_NO DESC
 	</select>
 	
+	<select id="myGroupList" parameterType="string" resultMap="groupResultSet">
+		SELECT GROUP_NO, GROUP_IMG, GROUP_NAME, USER_RANK
+		  FROM GROUP_ROOM
+		  JOIN GROUP_MEMBER USING(GROUP_NO)
+		 WHERE USER_ID = #{userId}
+		 ORDER 
+		    BY GROUP_NO DESC
+	</select>
+	
+	<select id="enrollGroup" parameterType="string" resultMap="groupResultSet">
+		SELECT GROUP_NO, GROUP_IMG, GROUP_NAME 
+		  FROM GROUP_ROOM
+  		  JOIN GROUP_MEMBER USING(GROUP_NO)
+ 	     WHERE USER_RANK = 'M'
+   		   AND USER_ID = #{userId}
+ 		 ORDER BY GROUP_NO DESC
+	</select>
 	
 	<insert id="insertGroup" parameterType="groupRoom">
-		insert 
-			into group_room
+		INSERT 
+			INTO GROUP_ROOM
 				(
-				group_no,
-				region_no,
-				category_no,
-				group_name,
-				group_img,
-				group_detail,
-				group_type,
-				group_date
+				GROUP_NO,
+				REGION_NO,
+				CATEGORY_NO,
+				GROUP_NAME,
+				GROUP_IMG,
+				GROUP_DETAIL,
+				GROUP_TYPE,
+				GROUP_DATE
 				)
-			values
+			VALUES
 				(
-				seq_gno.nextval,
+				SEQ_GNO.NEXTVAL,
 				#{regionNo},
 				#{categoryNo},
 				#{groupName},
 				#{groupImg},
 				#{groupDetail},
 				#{groupType},
-				sysdate
+				SYSDATE
 				)
 	
 	</insert>
 	
 	<insert id="insertGroupMember" parameterType="groupMember">
-		insert 
-			into group_member
+		INSERT 
+			INTO GROUP_MEMBER
 				(
-				group_no,
-				user_id,
-				user_rank
+				GROUP_NO,
+				USER_ID,
+				USER_RANK
 				)
-			values
+			VALUES
 				(
-				seq_gno.currval,
+				SEQ_GNO.CURRVAL,
 				#{userId},
 				#{userRank}
 				)
@@ -78,32 +115,34 @@
 			   SEQ_GNO.CURRVAL
 			   )		 
 	</insert>
-	
-	<select id="memberCount" resultType="_int">
-		select count(m.group_no)
-		from group_room r
-		left join group_member m on(r.group_no=m.group_no)
-		group by r.group_no
-		order by r.group_no desc
-	</select>
-	
-	<select id="manageGroup" resultMap="groupResultSet">
-		select group_no, group_img, group_name from group_room
-		join group_member using(group_no)
-		where user_rank ='A'
-		order by group_no desc
-	</select>
-	
+
 	<select id="getGroupNo" resultType="int">
-		SELECT last_number - 1
-	      FROM user_sequences
-	     where sequence_name = 'SEQ_GNO'
+		SELECT LAST_NUMBER - 1
+	      FROM USER_SEQUENCES
+	     WHERE SEQUENCE_NAME = 'SEQ_GNO'
 	</select>
 	
 	<select id="selectGroup" parameterType="_int" resultMap="groupResultSet">
-		SELECT GROUP_NO, REGION_NO, CATEGORY_NO, GROUP_NAME, GROUP_IMG, GROUP_DETAIL, GROUP_TYPE, GROUP_DATE
-  	      FROM GROUP_ROOM
- 	     WHERE GROUP_NO = #{groupNo}
+		SELECT R.GROUP_NO, REGION_NO, CATEGORY_NO, GROUP_NAME, GROUP_DETAIL, GROUP_IMG, GROUP_TYPE, GROUP_DATE, COUNT(M.GROUP_NO) MEMBER_COUNT
+  		  FROM GROUP_ROOM R
+  		  LEFT JOIN GROUP_MEMBER M ON(R.GROUP_NO = M.GROUP_NO)
+  	     WHERE R.GROUP_NO = #{groupNo}
+ 		 GROUP BY R.GROUP_NO, REGION_NO, CATEGORY_NO, GROUP_NAME, GROUP_DETAIL, GROUP_IMG, GROUP_TYPE, GROUP_DATE
 	</select>
-	
+
+	<select id="selectMemberList" parameterType="_int" resultMap="memberResultSet">
+		SELECT 
+			   USER_ID, 
+			   NICKNAME, 
+			   DECODE(USER_RANK, 'A', '관리자', '일반회원') AS "USER_RANK"
+  		  FROM 
+  		  	   GROUP_MEMBER
+  	 	  JOIN 
+  	 	  	   MEMBER USING(USER_ID)
+ 		 WHERE 
+ 		 	   GROUP_NO = #{groupNo}
+ 	     ORDER 
+ 	        BY 
+ 	           USER_RANK ASC
+	</select>
 </mapper>

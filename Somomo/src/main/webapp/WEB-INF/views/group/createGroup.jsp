@@ -113,13 +113,13 @@
                             <ul class="list">
                                 <li><img id="userImg" src="resources/img/addImg.png" alt=""></li><!-- 이친구는 사용자가 등록 할 수 있는 사진 -->
                                 <!-- 아래 사진들은 사이트에서 기본적으로 제공해주는 사진들 -->
-                                <li><img class="defaultImg" src="resources/img/defaultGroupImg/sample_group_img1.jpeg" alt="" ></li>
-                                <li><img class="defaultImg" src="resources/img/defaultGroupImg/sample_group_img2.jpeg" alt="" ></li>
-                                <li><img class="defaultImg" src="resources/img/defaultGroupImg/sample_group_img3.jpeg" alt="" ></li>
-                                <li><img class="defaultImg" src="resources/img/defaultGroupImg/sample_group_img4.jpeg" alt="" ></li>
-                                <li><img class="defaultImg" src="resources/img/defaultGroupImg/sample_group_img5.jpeg" alt="" ></li>
-                                <li><img class="defaultImg" src="resources/img/defaultGroupImg/sample_group_img6.jpeg" alt="" ></li>
-                                <li><img class="defaultImg" src="resources/img/logo.jpg" alt="" ></li>
+                                <li><img class="defaultImg" src="resources/img/group/defaultGroupImg/sample_group_img1.jpeg" alt="" ></li>
+                                <li><img class="defaultImg" src="resources/img/group/defaultGroupImg/sample_group_img2.jpeg" alt="" ></li>
+                                <li><img class="defaultImg" src="resources/img/group/defaultGroupImg/sample_group_img3.jpeg" alt="" ></li>
+                                <li><img class="defaultImg" src="resources/img/group/defaultGroupImg/sample_group_img4.jpeg" alt="" ></li>
+                                <li><img class="defaultImg" src="resources/img/group/defaultGroupImg/sample_group_img5.jpeg" alt="" ></li>
+                                <li><img class="defaultImg" src="resources/img/group/defaultGroupImg/sample_group_img6.jpeg" alt="" ></li>
+                                <li><img class="defaultImg" src="resources/img/web_logo.jpg" alt="" ></li>
                             </ul>
                         </div>
                     </div>

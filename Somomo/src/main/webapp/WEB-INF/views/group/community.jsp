@@ -9,15 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!----------- CSS --------------->
-    <link rel="stylesheet" href="resources/css/header.css">
-    <link rel="stylesheet" href="resources/css/groupList.css">
+    <link rel="stylesheet" href="resources/css/header.css?ver=1.0.0">
+    <link rel="stylesheet" href="resources/css/groupList.css?ver=1.1.2">
     <!----------- 아이콘 CSS 링크 ------->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <script src="https://kit.fontawesome.com/567fbbaed5.js" crossorigin="anonymous"></script>
     <!----------- 아이콘 CSS 링크 version 2------->
-
     <title>그룹리스트</title> 
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
@@ -26,8 +24,7 @@
             <header>
                 <div class="logo-name">
                     <div class="logo-image">
-                        <a href="main.jsp"><img src="resources/img/logo.jpg" alt=""></a>
-                        
+                        <a href="index.html"><img src="resources/img/web_logo.jpg" alt=""></a>
                     </div>
                     <span class="logo_name">SoMoMo</span>
                 </div>
@@ -53,7 +50,7 @@
     <section>
         <nav>
             <div class="nav-col">
-                <h2>Group</h2>
+                <h1 class="nav-title">Group</h1>
                 <div class="nav-col-group">
                     <i class="fas fa-clipboard-list"></i>
                     <span>그룹 목록</span>
@@ -63,69 +60,84 @@
                     <span>찾아보기</span>
                 </div>
     
-                <div class="create-newGroup"><a href="insertForm.gr">+ 새 그룹 만들기</a></div>
-    
+                <div class="create-newGroup"><a href="insertForm.gr">새 그룹 만들기</a></div>
                 <div class="horizontal"></div>
             </div>
     
             <div class="nav-col">
                 <h2>관리중인그룹</h2>
-                <c:forEach var="g" items="${manageList}">
-	                <div>
-	                    <img src="${g.groupImg}" alt="">
-	                    <span>${g.groupName}</span>
-	                </div>
-                </c:forEach>
-                <div class="horizontal"></div>
+                <div class="nav-col-group">
+                    <img src="resources/img/aju.png" alt="">
+                    <span>KH - 모2조</span>
+                </div>
     
+                <div class="nav-col-group">
+                    <img src="resources/img/aju.png" alt="">
+                    <span>오늘의 맛집</span>
+                </div>
+                
+                <div class="horizontal"></div>
                 <h2>가입한 그룹</h2>
-                <div>
+                <div class="nav-join-group">
                     <img src="resources/img/aju.png" alt="">
                     <span>아주대학교 커뮤니티</span>
-                </div>
-    
-                <div>
-                    <img src="resources/img/kh.jpeg" alt="">
-                    <span>KH정보교육원</span>
-                </div>
-                <div>
-                	<a href="test.do">테스트</a>
                 </div>
             </div>
         </nav>
 		
         <main class="content">
+            
             <div class="list-outer">
-                <c:forEach var="g" items="${list}">
-                	<div class="group">
-	                    <div class="group-img">
-	                        <img src="${g.groupImg}" alt="그룹대표이미지">
-	                    </div>
-	                    <div class="group-element">
-	                        <div class="group-name">
-	                            <span>${g.groupName}</span>
-	                        </div>
-	                        <div class="group-info">
-	                            <span>멤버</span>
-	                            <span>|</span>
-	                            <c:choose>
-	                            	<c:when test="${g.groupType eq 'A'}">
-	                            		<span>공개</span>
-	                            	</c:when>
-	                            	<c:otherwise>
-	                            		<span>비공개</span>
-	                            	</c:otherwise>
-	                            </c:choose>
-	                        </div>
-	                        <div class="group-btn">
-	                            <button>그룹 가입</button>
-	                        </div>
-	                    </div>
-               		</div>
-                </c:forEach>
+                <div class="tag-group">
+                    <ul class="tag-body">
+                        <li class="category-list">그룹 전체</li>
+                        <li class="category-list">#개발</li>
+                        <li class="category-list">#여행</li>
+                        <li class="category-list">#운동</li>
+                    </ul>
+                </div>
+
+                <div class="group-outer">
+
+                    <c:forEach var="g" items="${list}">
+                        <div class="group">
+                            <div class="group-header">
+                                <img src="${g.groupImg}" alt="rover" />
+                            </div>
+                            <div class="group-body">
+                                <span class="tag tag-development">${g.categoryNo}</span>
+                                <h4>
+                                    ${g.groupName}
+                                </h4>
+                                <div class="group-info">
+                                    <span class="group-member">멤버 ${g.memberCount}명</span>
+                                    <span>${g.groupType}</span>
+                                </div>
+                                <div class="group-btn">
+                                    <button>그룹 가입</button>
+                                </div>
+                                
+                            </div>
+                        </div>
+    
+                    </c:forEach>
+
+
+                    
+                </div>
             </div>
+            
         </main>
     </section>
     
+    <script>
+        $('.group').click(function(){
+            const groupNo = $(this).children().eq(0).val();
+
+            location.href = "groupDetail.gr?groupNo=" + groupNo;
+        })
+    </script>
+
+
     </body>
 </html>

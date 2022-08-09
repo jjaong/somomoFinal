@@ -11,6 +11,10 @@ public interface GroupService {
 	//그룹방 리스트 조회
 	ArrayList<GroupRoom> selectList();
 	
+	//관리 그룹방 리스트
+	ArrayList<GroupRoom> myGroupList(String userId);
+		
+	// ----- 그룹방 만들기 할때 필요한 메소드 -----
 	//그룹방 추가
 	int insertGroup(GroupRoom gr);
 	
@@ -20,18 +24,14 @@ public interface GroupService {
 	//그룹방 캘린더 추가
 	int insertCalendar();
 	
-	//멤버 수 세기
-	int memberCount(String count);
+	// 그룹방 번호 가져오기
+	int getGroupNo();
 	
-	//관리 그룹방 리스트
-	ArrayList<GroupRoom> manageGroup();
-	
-	// 테스트
-	
+	// ----- 그룹방 상세 페이지에서 필요한 정보들 조회
 	// 그룹방
 	GroupRoom selectGroup(int groupNo);
 	
-	int getGroupNo();
-	
-		
+	// 그룹방 멤버 리스트
+	ArrayList<GroupMember> selectMemberList(int groupNo);
+
 }
