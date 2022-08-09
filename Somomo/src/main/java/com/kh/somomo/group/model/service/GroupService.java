@@ -13,6 +13,9 @@ public interface GroupService {
 	
 	//관리 그룹방 리스트
 	ArrayList<GroupRoom> myGroupList(String userId);
+	
+	//가입 그룹방 리스트
+	ArrayList<GroupRoom> myJoinList(String userId);
 		
 	// ----- 그룹방 만들기 할때 필요한 메소드 -----
 	//그룹방 추가

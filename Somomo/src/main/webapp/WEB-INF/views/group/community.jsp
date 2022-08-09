@@ -63,25 +63,27 @@
                 <div class="create-newGroup"><a href="insertForm.gr">새 그룹 만들기</a></div>
                 <div class="horizontal"></div>
             </div>
-    
+    		
+    		
+    		
             <div class="nav-col">
                 <h2>관리중인그룹</h2>
-                <div class="nav-col-group">
-                    <img src="resources/img/aju.png" alt="">
-                    <span>KH - 모2조</span>
-                </div>
-    
-                <div class="nav-col-group">
-                    <img src="resources/img/aju.png" alt="">
-                    <span>오늘의 맛집</span>
-                </div>
+                <c:forEach var="gl" items="${myGroupList}">
+	                <div class="nav-col-group">
+	                    <img src="${gl.groupImg}" alt="">
+	                    <span>${gl.groupName}</span>
+	                </div>
+                </c:forEach>
                 
+                <!--...............아 진짜 똑같아서 바꾸고 싶다................ -->
                 <div class="horizontal"></div>
                 <h2>가입한 그룹</h2>
-                <div class="nav-join-group">
-                    <img src="resources/img/aju.png" alt="">
-                    <span>아주대학교 커뮤니티</span>
-                </div>
+                <c:forEach var="jl" items="${myJoinList}">
+	                <div class="nav-col-group">
+	                    <img src="${jl.groupImg}" alt="">
+	                    <span>${jl.groupName}</span>
+	                </div>
+                </c:forEach>
             </div>
         </nav>
 		
@@ -102,7 +104,7 @@
                     <c:forEach var="g" items="${list}">
                         <div class="group">
                             <div class="group-header">
-                                <img src="${g.groupImg}" alt="rover" />
+                                <img src="${g.groupImg}" alt="" />
                             </div>
                             <div class="group-body">
                                 <span class="tag tag-development">${g.categoryNo}</span>

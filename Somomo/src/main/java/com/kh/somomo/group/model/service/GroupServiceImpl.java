@@ -28,6 +28,11 @@ public class GroupServiceImpl implements GroupService{
 	public ArrayList<GroupRoom> myGroupList(String userId) {
 		return groupDao.myGroupList(sqlSession, userId);
 	}
+	
+	@Override
+	public ArrayList<GroupRoom> myJoinList(String userId) {
+		return groupDao.myJoinList(sqlSession, userId);
+	}
 
 	@Override
 	public int insertGroup(GroupRoom gr) {

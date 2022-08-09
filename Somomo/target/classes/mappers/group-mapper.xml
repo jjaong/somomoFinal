@@ -4,7 +4,9 @@
   <resultMap id="groupResultSet" type="groupRoom">
 		<result column="GROUP_NO" property="groupNo"/>
 		<result column="REGION_NO" property="regionNo"/>
+		<result column="REGION_NAME" property="regionNo"/>
 		<result column="CATEGORY_NO" property="categoryNo"/>
+		<result column="CATEGORY_NAME" property="categoryNo"/>
 		<result column="GROUP_NAME" property="groupName"/>
 		<result column="GROUP_IMG" property="groupImg"/>
 		<result column="GROUP_DETAIL" property="groupDetail"/>
@@ -22,38 +24,26 @@
 	</resultMap>
 	
 	<select id="selectList" resultMap="groupResultSet">
-		SELECT 
-			   R.GROUP_NO, 
-			   GROUP_NAME, 
-			   GROUP_IMG, 
-			   GROUP_TYPE, 
-			   GROUP_DATE, 
-			   COUNT(M.GROUP_NO) MEMBER_COUNT
-  		  FROM 
-  		       GROUP_ROOM R
-  		  LEFT 
-  		  JOIN 
-  		       GROUP_MEMBER M 
-  		    ON
-  		       (R.GROUP_NO = M.GROUP_NO)
- 		 GROUP 
- 		    BY 
- 		       R.GROUP_NO, GROUP_NAME, GROUP_IMG, GROUP_TYPE, GROUP_DATE
- 		 ORDER 
- 		    BY 
- 		       GROUP_NO DESC
+		SELECT R.GROUP_NO, REGION_NAME, CATEGORY_NAME, GROUP_NAME, GROUP_IMG, GROUP_DETAIL , DECODE(GROUP_TYPE, 'A', '공개', '비공개') GROUP_TYPE, GROUP_DATE, COUNT(M.GROUP_NO) MEMBER_COUNT
+		  FROM GROUP_ROOM R
+		  LEFT JOIN REGION_CATEGORY USING(REGION_NO)
+		  LEFT JOIN GROUP_CATEGORY USING(CATEGORY_NO)
+		  LEFT JOIN GROUP_MEMBER M ON(R.GROUP_NO = M.GROUP_NO)
+		 GROUP BY R.GROUP_NO, REGION_NAME, CATEGORY_NAME, GROUP_DETAIL ,GROUP_NAME, GROUP_IMG, GROUP_TYPE, GROUP_DATE
+		 ORDER BY GROUP_NO DESC
 	</select>
 	
 	<select id="myGroupList" parameterType="string" resultMap="groupResultSet">
-		SELECT GROUP_NO, GROUP_IMG, GROUP_NAME, USER_RANK
+		SELECT GROUP_NO, GROUP_IMG, GROUP_NAME
 		  FROM GROUP_ROOM
 		  JOIN GROUP_MEMBER USING(GROUP_NO)
-		 WHERE USER_ID = #{userId}
-		 ORDER 
-		    BY GROUP_NO DESC
+		 WHERE USER_RANK = 'A'
+		 AND USER_ID = #{userId}
+		 ORDER BY GROUP_NO DESC
 	</select>
 	
-	<select id="enrollGroup" parameterType="string" resultMap="groupResultSet">
+	
+	<select id="myJoinList" parameterType="string" resultMap="groupResultSet">
 		SELECT GROUP_NO, GROUP_IMG, GROUP_NAME 
 		  FROM GROUP_ROOM
   		  JOIN GROUP_MEMBER USING(GROUP_NO)
