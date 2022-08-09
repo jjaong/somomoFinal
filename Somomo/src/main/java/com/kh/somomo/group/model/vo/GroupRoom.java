@@ -13,8 +13,8 @@ public class GroupRoom {
 
 	// 테이블 : GROUP (그룹방)
 	private int groupNo;
-	private int regionNo;
-	private int categoryNo;
+	private String regionNo;   // 조인해서 사용할것이기 떄문에 그냥 String으로 바꿈!!
+	private String categoryNo; // 조인해서 사용할것이기 떄문에 그냥 String으로 바꿈!!
 	private String groupName;
 	private String groupImg;
 	private String groupDetail;
