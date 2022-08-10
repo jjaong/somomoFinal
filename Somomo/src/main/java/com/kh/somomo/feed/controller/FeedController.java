@@ -25,6 +25,7 @@ import com.kh.somomo.common.template.Pagination;
 import com.kh.somomo.common.template.Time;
 import com.kh.somomo.feed.model.service.FeedService;
 import com.kh.somomo.feed.model.vo.FeedBoard;
+import com.kh.somomo.feed.model.vo.UserFeedInfo;
 
 @Controller
 public class FeedController {

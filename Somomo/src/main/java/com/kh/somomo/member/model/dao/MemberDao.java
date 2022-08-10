@@ -7,7 +7,7 @@ import com.kh.somomo.member.model.vo.Member;
 
 @Repository
 public class MemberDao {
-
+	
 	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
@@ -23,6 +23,4 @@ public class MemberDao {
 	public int NickNameCheck(SqlSessionTemplate sqlSession, String checkNickName) {
 		return sqlSession.selectOne("memberMapper.NickNameCheck", checkNickName);
 	}
-
-
 }

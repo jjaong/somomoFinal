@@ -17,7 +17,7 @@ public class Member {
 	private int age;
 	private String email;
 	private String gender;
-	private String profileImg;
+	private String profieImg;
 	private String enrollDate;
 	private String kakaoLogin;
 	private String status;

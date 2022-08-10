@@ -23,7 +23,7 @@
         <header>
             <div class="logo-name">
                 <div class="logo-image">
-                    <a href="main.fd"><img src="resources/img/logo.jpg" alt=""></a>
+                    <a href="index.html"><img src="resources/img/logo.jpg" alt=""></a>
                 </div>
                 <span class="logo_name">SoMoMo</span>
             </div>

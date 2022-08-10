@@ -18,5 +18,5 @@ public interface MemberService {
 
 	// sms문자인증ㄴ
 	void certifiedPhoneNumber(String userPhoneNumber, int randomNumber);
-
+	
 }

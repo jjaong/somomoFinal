@@ -64,5 +64,4 @@ public class MemberServiceImpl implements MemberService{
 	        System.out.println(e.getCode());
 	      }
 	}
-
 }

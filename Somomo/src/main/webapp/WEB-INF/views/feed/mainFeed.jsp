@@ -284,6 +284,7 @@
         				
         				// 응답된 문자열은 html형식(feed/ajaxFeedList.jsp에 응답내용 있음)
 						$('.fd-board-area').append(data);
+
 						isLoading=false;
 						// 게시글 내용 클릭 시 상세페이지로 이동
 		            	$('.fd-board-contents').click(function(){
@@ -317,6 +318,7 @@
         		let boardType = $(likeImg).data('btype');
         		
         		console.log('글번호:' + bno);
+
 				// 기존에 좋아요 안 눌렀을 경우 => 좋아요 등록
         		if($(likeImg).children('img').hasClass('likeN')){ 
         			
@@ -374,10 +376,13 @@
             			}
             		});
         		}
+
         	}
         	
+
         </script>
         <script>
+
         </script>
             
 	    <!--------------------- Modal 창 --------------------->
