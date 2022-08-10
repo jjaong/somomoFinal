@@ -36,7 +36,6 @@ public class GroupController {
 		
 		mv.addObject("list", groupService.selectList())
 		  .addObject("myGroupList", groupService.myGroupList(userId))
-		  .addObject("myJoinList", groupService.myJoinList(userId))
 		  .setViewName("group/community");
 		
 		return mv;
@@ -58,10 +57,8 @@ public class GroupController {
 	public String insertGroup(GroupRoom gr, GroupMember gm, MultipartFile upfile, Model model, HttpSession session){
 		
 		// 사용자가 자기 사진을 추가
-		// 먼저 기존의 profileImg에 등록된 사진을 변경해준다. update
-		
-		
-		
+		// 기존의 profileImg에 등록된 사진을 변경해준다. 
+		// => 사용자가 그룹방 메인 사진을 따로 추가 하지 않을 경우, 서버에서 임의로 제공하는 사진의 경로가 gr.groupImg에 들어가 있음
 		if(!upfile.getOriginalFilename().equals("")) {
 			HashMap<String, String> map = saveFile(upfile, session, "img/group/userGroupImg");
 			
@@ -91,7 +88,6 @@ public class GroupController {
 		
 		if (gr != null) {
 			mv.addObject("gr", gr).addObject("mList", mList).setViewName("group/groupDetail");
-			
 		} else {
 			mv.addObject("errorMsg", "그딴 그룹방은 없는디요??").setViewName("common/errorPage");
 		}
