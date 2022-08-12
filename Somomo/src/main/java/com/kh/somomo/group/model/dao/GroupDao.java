@@ -20,11 +20,11 @@ public class GroupDao {
 	}
 	
 	public ArrayList<RegionCategory> selectRegionCategoryList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("groupMapper.selectRegionList");
+		return (ArrayList)sqlSession.selectList("groupMapper.selectRegionCategoryList");
 	}
 	
 	public ArrayList<GroupCategory> selectGroupCategoryList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("groupMapper.selectGroupList");
+		return (ArrayList)sqlSession.selectList("groupMapper.selectGroupCategoryList");
 	}
 
 	public ArrayList<GroupRoom> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {

@@ -5,17 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>에러 페이지</title>
+<title>에러페이지</title>
 </head>
 <body>
-​
-    <br>
+	<br>
     <div align="center">
         <img src="https://cdn2.iconfinder.com/data/icons/oops-404-error/64/208_balloon-bubble-chat-conversation-sorry-speech-256.png">
         <br><br>
         <h1 style="font-weight:bold;">${ errorMsg }</h1>
     </div>
     <br>
-​
 </body>
 </html>

@@ -20,7 +20,8 @@
 		<result column="GROUP_NO" property="groupNo"/>
 		<result column="USER_ID" property="userId"/>
 		<result column="USER_RANK" property="userRank"/>
-		<result column="NICKNAME" property="nickname"/> 
+		<result column="NICKNAME" property="nickname"/>
+		<result column="PROFILE_IMG" property="profileImg"/> 
 	</resultMap>
 	
 	<resultMap id="groupCategoryResultSet" type="groupCategory">
@@ -34,8 +35,6 @@
 	</resultMap>
 	
 	
-	
-	
 	<select id="selectGroupListCount" resultType="_int">
 		SELECT 
 		       COUNT(*) 
@@ -43,7 +42,7 @@
 		       GROUP_ROOM 
 	</select>
 	
-	<select id="selectRegionList" resultMap="regionCategoryResultSet">
+	<select id="selectRegionCategoryList" resultMap="regionCategoryResultSet">
 		SELECT 
 			   REGION_NO,
 			   REGION_NAME
@@ -52,7 +51,7 @@
 	</select>
 	
 	
-	<select id="selectGroupList" resultMap="groupCategoryResultSet">
+	<select id="selectGroupCategoryList" resultMap="groupCategoryResultSet">
 		SELECT 
 			   CATEGORY_NO,
 			   CATEGORY_NAME
@@ -202,7 +201,8 @@
 		SELECT 
 			   USER_ID, 
 			   NICKNAME, 
-			   DECODE(USER_RANK, 'A', '관리자', '일반회원') AS "USER_RANK"
+			   DECODE(USER_RANK, 'A', '관리자', '일반회원') AS "USER_RANK",
+			   PROFILE_IMG
   		  FROM 
   		  	   GROUP_MEMBER
   	 	  JOIN 

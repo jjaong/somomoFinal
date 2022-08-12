@@ -10,13 +10,14 @@
     
     <!----------- CSS --------------->
     <link rel="stylesheet" href="resources/css/header.css?ver=1.0.1">
-    <link rel="stylesheet" href="resources/css/groupList.css?ver=1.3.4">
+    <link rel="stylesheet" href="resources/css/groupList.css?ver=1.3.3">
+    <link rel="stylesheet" href="resources/css/applyModal.css?ver=1.0.2">
     <!----------- 아이콘 CSS 링크 ------->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <script src="https://kit.fontawesome.com/567fbbaed5.js" crossorigin="anonymous"></script>
     <!----------- 아이콘 CSS 링크 version 2------->
-    <title>그룹리스트</title> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
     <title>그룹리스트</title> 
 </head>
 <body>
@@ -124,17 +125,17 @@
 		<!-- 메인  (그룹방 리스트) -->
         <main class="content">
             <div class="list-outer">
-		         <div class="tag-group">
-		             <ul class="tag-body">
-		                 <li class="all-category-list">그룹 전체</li>
-		             	 <c:forEach var="gc" items="${gList}">
-							<li class="category-list" value="${gc.categoryName}">#${gc.categoryName}</li>
-						 </c:forEach>
-		             </ul>
-		         </div>
-                 <div class="group-outer">
-                 
-                 </div>
+                <div class="tag-group">
+                    <ul class="tag-body">
+                        <li class="all-category-list">그룹 전체</li>
+                        <c:forEach var="gc" items="${cList}">
+                        <li class="category-list" value="${gc.categoryName}">#${gc.categoryName}</li>
+                        </c:forEach>
+                    </ul>
+                </div>
+                <div class="group-outer">
+                
+                </div>
             </div>
         </main>
     
@@ -210,16 +211,13 @@
 	    	});
 	    }
 	    
-
-		//그룹방 클릭시 상세 페이지로 이동
-		$('.group').click(function(){
-	            const groupNo = $(this).children().eq(0).val();
-
-	            location.href = "groupDetail.gr?groupNo=" + groupNo;
-	    });
-		
-	    
-	    
+    </script>
+    
+    <script>
+    	
+        $('.nav-group-list').click(function(){
+            location.href = "detail.gr?gno=" + $(this).children().eq(0).val();
+        })
     </script>
 
 	</section>

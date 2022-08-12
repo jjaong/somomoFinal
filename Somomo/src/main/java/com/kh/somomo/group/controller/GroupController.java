@@ -38,11 +38,11 @@ public class GroupController {
 		
 		PageInfo pi = Pagination.getPageInfo(groupService.selectGroupListCount(), currentPage, 10, 9); // 페이징처리
 		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
-		mv.addObject("pi", pi)
-		  .addObject("myGroupList", groupService.myGroupList(userId))
-		  .addObject("gList", groupService.selectGroupCategoryList())
+		mv.addObject("pi", pi)										  // 페이징
+		  .addObject("myGroupList", groupService.myGroupList(userId)) // 내가 관리/가입한 그룹 리스트
+		  .addObject("cList", groupService.selectGroupCategoryList()) // 그룹카테고리
 		  .setViewName("group/community");
-		System.out.println(pi);
+		
 		return mv;
 	}
 	
@@ -52,9 +52,9 @@ public class GroupController {
 				 			Model model) throws ParseException {
 		PageInfo pi = Pagination.getPageInfo(groupService.selectGroupListCount(), currentPage, 10, 9); // 페이징처리
 		
-		ArrayList<GroupRoom> gList = groupService.selectList(pi);
-		model.addAttribute("list", gList);
-		System.out.println(gList);
+		ArrayList<GroupRoom> gList = groupService.selectList(pi); // 전체 그룹 리스트
+		model.addAttribute("list", gList); 
+		
 		return "group/groupList";
 	}
 	
@@ -62,7 +62,7 @@ public class GroupController {
 	@RequestMapping("insertForm.gr")
 	public String insertForm(Model model) {
 		model.addAttribute("rList",groupService.selectRegionCategoryList())
-			 .addAttribute("gList", groupService.selectGroupCategoryList());
+			 .addAttribute("cList", groupService.selectGroupCategoryList());
 		return "group/createGroup";
 	}
 	
@@ -91,35 +91,98 @@ public class GroupController {
 		int groupNo = groupService.getGroupNo();     // 상세페이지로 이동하기위해 식별값인 groupNo를 조회해서 가져옴
 		
 		if(result*result2*result3 > 0) {
-			return "redirect:groupDetail.gr?groupNo=" + groupNo; // 쿼리스트링으로 전달
+			return "redirect:detail.gr?gno=" + groupNo; // 쿼리스트링으로 전달
 		}else { 
 			model.addAttribute("errorMsg","그룹방 추가 실패");
 			return "common/errorPage";
 		}
 	}
 	
-	// 그룹방 상세 보기
-	@RequestMapping("groupDetail.gr")
-	public ModelAndView groupDetail(int groupNo, ModelAndView mv) {
+	// 그룹방 상세
+	// 상세보기 페이지에서 필요한 정보 : 해당 그룹방에 대한 정보, 가입된 회원들의 리스트
+	@RequestMapping("detail.gr")
+	public ModelAndView groupDetail(int gno, ModelAndView mv) {
 		
-		GroupRoom gr = groupService.selectGroup(groupNo); 	     // 특정 그룹방에대한 정보를 담음
-		ArrayList<GroupMember> mList = groupService.selectMemberList(groupNo); // 가입된 회원리스트
+		GroupRoom gr = groupService.selectGroup(gno); 	     			   // 특정 그룹방에대한 정보를 담음
+		ArrayList<GroupMember> mList = groupService.selectMemberList(gno); // 가입된 회원리스트
+		
+		System.out.println(groupService.selectMemberList(gno));
 		
 		if (gr != null) {
-			mv.addObject("gr", gr).addObject("mList", mList).setViewName("group/groupDetail");
+			mv.addObject("g", gr)
+			  .addObject("mList", mList)
+			  .setViewName("group/groupDetail");
 		} else {
 			mv.addObject("errorMsg", "그딴 그룹방은 없는디요??").setViewName("common/errorPage");
 		}
 		return mv;
 	}
 	
+	// 그룹방 상세
+	// 그룹방 설정 변경 => 사이드바 메뉴에 표시될 정보를 위해 계속 정보 가져옴
 	@RequestMapping("setting.gr")
-	public String setting(int groupNo, Model model) {
+	public ModelAndView setting(int groupNo, ModelAndView mv) {
 		
-		model.addAttribute("gr", groupService.selectGroup(groupNo));
+		mv.addObject("g", groupService.selectGroup(groupNo))
+		  .addObject("mList", groupService.selectMemberList(groupNo))
+		  .setViewName("group/groupSetting");
 		
-		return "group/groupSetting";
+		return mv;
 	}
+	
+	@RequestMapping("updateForm.gr")
+	public String updateGroup(int groupNo, Model model) {
+		
+		model.addAttribute("g", groupService.selectGroup(groupNo));
+		
+		return "group/updateGroup";
+	}
+	
+	@RequestMapping("grouptType.gr")
+	public String changeType() {
+		
+		
+		return "main";
+	}
+	
+	@RequestMapping("delete.gr")
+	public String deleteGroup() {
+		
+		
+		return "main";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 이거는 임시 입니다.
+//	@RequestMapping("apply.gr")
+//	@ResponseBody
+//	public String applyGroup(GroupJoinApply applyInfo) {
+//		
+//		System.out.println(applyInfo);
+//		
+//		int result = groupService.applyGroup(applyInfo);
+//		
+//		if(result > 0) { // 그룹 가입 신청 완료
+//			return "NNNNY";
+//		} else {
+//			return "NNNNN";
+//		}
+//	}
+	
 }
 
 

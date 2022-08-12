@@ -9,7 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!----------- CSS --------------->
-    <link rel="stylesheet" href="resources/css/style2.css?ver=1.0.3">
+    <link rel="stylesheet" href="resources/css/groupHeader.css?ver=1.0.6">
+    <link rel="stylesheet" href="resources/css/style2.css?ver=1.1.4">
+    <link rel="stylesheet" href="resources/css/groupLeft.css?ver=1.0.5">
+    <link rel="stylesheet" href="resources/css/groupRight.css?ver=1.0.4">
     <!----------- 아이콘 CSS 링크 ------->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <script src="https://kit.fontawesome.com/567fbbaed5.js" crossorigin="anonymous"></script>
@@ -18,94 +21,24 @@
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <title>소모모 - ${gr.groupName}</title> 
+    <title>소모모 - ${g.groupName}</title> 
 </head>
 <body>
-
-
-
-
-
-<!--------------------- 헤더 ------------------------>
-
-    <div class="wrapper">
-        <div>
-            <header>
-                <div class="logo-name">
-                    <div class="logo-image">
-                        <a href="main.fd"><img src="resources/img/web_logo.jpg" alt=""></a>
-                    </div>
-                    <span class="logo_name">SoMoMo</span>
-                </div>
-        
-                <div class="top">
-                    <form action="">
-                        <div class="search-box">
-                            <i class="uil uil-search"></i>
-                            <input type="text" placeholder="검색">
-                        </div>
-                    </form>
-                </div>
-    
-                <ul class="menu-list">
-                    <li><a href=""><i class="uil uil-bell"></i></a></li>
-                    <li><a href=""><i class="uil uil-comment-dots"></i></a></li>
-                    <li><a href=""><i class="uil uil-user"></i></a></li>
-                </ul>
-            </header>
-        </div>
-    </div>
-
-
+	<!--------------------- 헤더 ------------------------>
+	<jsp:include page="groupDetailCommon/groupHeader.jsp"/>
+    <!--------------------- 헤더 ------------------------>
 
     <!----------------------- 메인 컨텐츠 ------------------------------>
-
-
     <div class="main-section">
 
-
-        <!-------------------- 메인 컨텐츠 헤더 --------------------->
-        <div class="main-header-container">
-            <div class="main-header">
-                <ul class="main-header-bar">
-                    <li class="forward">
-                        <a href=""><span class="header-name">게시글</span></a>
-                    </li>
-                    <li class="forward">
-                        <a href=""><span class="header-name">사진첩</span></a>
-                    </li>
-                    <li class="forward">
-                        <a href=""><span class="header-name">일정</span></a>
-                    </li>
-                    <li class="forward">
-                        <a href=""><span class="header-name">멤버</span></a>
-                    </li>
-                </ul>
-            </div>
+        <div class="main-left">
+            <jsp:include page="groupDetailCommon/leftSidebar.jsp"/>
         </div>
-          <!-------------------- 메인 컨텐츠 헤더 끝--------------------->
-
-
- 			<!-------------------- 왼쪽 사이드 바--------------------->
-		<jsp:include page="groupDetailCommon/leftSidebar.jsp"/>
-		
-		
-		
-		<script>
-			function postFormSubmit(){
-				$('#postForm').attr('action', 'setting.gr').submit();
-			}
-		</script>
 
         <div class="main-middle">
-        
-        
-		  <!---------------------- 글쓰기 Modal 창 --------------------->
-             
-             <jsp:include page="groupDetailCommon/modal.jsp"/>
-		
-           
-             
+            <!---------------------- 글쓰기 Modal 창 --------------------->
+            <jsp:include page="groupDetailCommon/modal.jsp"/>
+
             <c:choose>
                 <c:when test="${not empty fList}">
                     <div class="feed-profile">
@@ -181,23 +114,23 @@
                 </c:otherwise>
             </c:choose>
         </div>
-        
-        
-        
-        <!---------------------- 오른쪽 사이드 바 --------------------->
-        <jsp:include page="groupDetailCommon/rightSidebar.jsp"/>
-        
-        
-        
-        
+
+        <div class="main-right">
+            <jsp:include page="groupDetailCommon/rightSidebar.jsp"/>
+        </div>
 
     </div>
     
+    <form id="settingForm" method="post">
+    	<input type="hidden" name="groupNo" value="${g.groupNo}">
+    </form>
     
-     <form method="post" id="postForm">
-             <input type="hidden" name="groupNo" value="${gr.groupNo}"/>
-      </form>
-
+    <script>
+    	function settingForm(){
+    		$('#settingForm').attr('action', 'setting.gr').submit();
+    	}
+    </script>
+    
     <script src="resources/js/GroupDetail.js"></script>
 </body>
 </html>

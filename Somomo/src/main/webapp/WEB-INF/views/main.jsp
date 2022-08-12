@@ -6,12 +6,11 @@
     <head>
         <meta charset="UTF-8">
         <!----------- CSS --------------->
-        <link rel="stylesheet" href="resources/css/style.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css?version=1.0.0">
         <!----------- 아이콘 CSS 링크 ------->
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
         <!----------- 아이콘 CSS 링크 version 2------->
         <title>메인 페이지</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body>
         <!--------------------- 왼쪽 사이드 바 ------------------------>
@@ -20,9 +19,9 @@
         <nav>
             <div class="logo-name">
                 <div class="logo-image">
-                    <img src="resources/img/web_logo.jpg" alt="peach">
+                    <img src="${pageContext.request.contextPath}/resources/img/web_logo.jpg" alt="peach">
                 </div>
-
+ 
                 <span class="logo_name">SoMoMo</span>
             </div>
 
@@ -50,30 +49,30 @@
                     <br><br><br><br>
                     
                     <li>
-                    	<a href="list.gr" class="community">
-                    		<i class="uil uil-users-alt"></i>
-                   			<span class="link-name">Community</span>
-                		</a>
-                	</li>
+                        <a href="#" class="community">
+                            <i class="uil uil-comments"></i>
+                            <span class="link-name">Community</span>
+                        </a>
+                    </li>
                     
                     <!-- 커뮤니티 이름 나타내기 -->
                     <li>
                         <a href="#" class="">
-                            <img src="resources/img/test1.jpg">
+                            <img src="${pageContext.request.contextPath}/resources/img/test1.jpg">
                             <span class="community-name">서핑</span>
                         </a>
                     </li>
 
                     <li>
                         <a href="#" class="">
-                            <img src="resources/img/test2.jpg">
+                            <img src="${pageContext.request.contextPath}/resources/img/test2.jpg">
                             <span class="community-name">유적 탐사</span>
                         </a>
                     </li>
 
                     <li>
                         <a href="#" class="">
-                            <img src="resources/img/test3.jpg">
+                            <img src="${pageContext.request.contextPath}/resources/img/test3.jpg">
                             <span class="community-name">자동차</span>
                         </a>
                     </li>
@@ -81,7 +80,7 @@
 
                 <ul class="logout-mode">
                     <li>
-                        <a href="#">
+                        <a href="logout.me">
                             <i class="uil uil-signout"></i>
                             <span class="link-name">Logout</span>
                         </a>
@@ -105,169 +104,9 @@
             <!------- 헤더 끝--------->
 
             <!------ 메인 피드----------->
-             <div class="main-feed" id="feedlist">
+            <div class="main-feed">
             
-            <div class="write-post-contatiner" >
-
-
-                <div class="feed-profile">
-                    <img src="images/커뮤니티1.jpg">
-                    <div>
-                        <p>Test</p>
-                        <small>Public</small>
-                    </div>
-                </div>
-
-                <br><br><br><br><br><br>
-
-
-                <div class="feed-profile">
-                    <img src="images/커뮤니티1.jpg">
-                    <div>
-                        <p>Test</p>
-                        <small>Public</small>
-                    </div>
-                </div>
-
-
             </div>
-
-
-            <div class="write-post-contatiner">
-
-
-                <div class="feed-profile">
-                    <img src="images/커뮤니티1.jpg">
-                    <div>
-                        <p>Test</p>
-                        <small>Public</small>
-                    </div>
-                </div>
-
-                <br><br><br><br><br><br>
-
-
-                <div class="feed-profile">
-                    <img src="images/커뮤니티1.jpg">
-                    <div>
-                        <p>Test</p>
-                        <small>Public</small>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-            <div class="write-post-contatiner">
-
-
-                <div class="feed-profile">
-                    <img src="images/커뮤니티1.jpg">
-                    <div>
-                        <p>Test</p>
-                        <small>Public</small>
-                    </div>
-                </div>
-
-                <br><br><br><br><br><br>
-
-
-                <div class="feed-profile">
-                    <img src="images/커뮤니티1.jpg">
-                    <div>
-                        <p>Test</p>
-                        <small>Public</small>
-                    </div>
-                </div>
-
-
-            </div>
-
-            <div class="write-post-contatiner">
-
-
-                <div class="feed-profile">
-                    <img src="images/커뮤니티1.jpg">
-                    <div>
-                        <p>Test</p>
-                        <small>Public</small>
-                    </div>
-                </div>
-
-                <br><br><br><br><br><br>
-
-
-                <div class="feed-profile">
-                    <img src="images/커뮤니티1.jpg">
-                    <div>
-                        <p>Test</p>
-                        <small>Public</small>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-            <div class="write-post-contatiner">
-
-
-                <div class="feed-profile">
-                    <img src="images/커뮤니티1.jpg">
-                    <div>
-                        <p>Test</p>
-                        <small>Public</small>
-                    </div>
-                </div>
-
-                <br><br><br><br><br><br>
-
-
-                <div class="feed-profile">
-                    <img src="images/커뮤니티1.jpg">
-                    <div>
-                        <p>Test</p>
-                        <small>Public</small>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-            <div class="write-post-contatiner" smm-list-key="20">
-
-
-                <div class="feed-profile">
-                    <img src="images/커뮤니티1.jpg">
-                    <div>
-                        <p>Test</p>
-                        <small>Public</small>
-                    </div>
-                </div>
-
-                <br><br><br><br><br><br>
-
-
-                <div class="feed-profile">
-                    <img src="images/커뮤니티1.jpg">
-                    <div>
-                        <p>Test</p>
-                        <small>Public</small>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-        <button id="moreButton">
-            10개 더보기
-        </button>
             <!-- 메인 피드 끝 -->
         </section>
 
@@ -286,6 +125,6 @@
             </div>
         </div>
         <!-- 오른쪽 사이드 바 -->
-        <script src="resources/js/main.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     </body>
 </html>

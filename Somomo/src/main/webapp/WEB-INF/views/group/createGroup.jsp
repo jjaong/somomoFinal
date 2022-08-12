@@ -52,34 +52,19 @@
                 	<input type="hidden" name="userId" value="${loginUser.userId}">
                 	<input type="hidden" name="userRank" value="A">
                     <div class="category-sheet">
+
                         <label for="regionNo">지역 선택</label>
                         <select name="regionNo" id="regionNo">
-                            <option value="1">서울</option>
-                            <option value="2">경기도</option>
-                            <option value="3">인천</option>
-                            <option value="4">대전</option>
-                            <option value="5">대구</option>
-                            <option value="6">광주</option>
-                            <option value="7">부산</option>
-                            <option value="8">울산</option>
-                            <option value="9">세종</option>
-                            <option value="10">강원</option>
-                            <option value="11">충북</option>
-                            <option value="12">충남</option>
-                            <option value="13">경북</option>
-                            <option value="14">경남</option>
-                            <option value="15">전북</option>
-                            <option value="16">전남</option>
-                            <option value="17">제주</option>
-                            <option value="18">전체지역</option>
+                            <c:forEach var="r" items="${rList}">
+                                <option value="${r.regionNo}">${r.regionName}</option>
+                            </c:forEach>    
                         </select>
 
                         <label for="categoryNo">그룹 카테고리</label>
                         <select name="categoryNo" id="categoryNo">
-                            <option value="1">개발</option>
-                            <option value="2">스터디</option>
-                            <option value="3">운동/취미</option>
-                            <option value="4">기타</option>
+                            <c:forEach var="c" items="${cList}">
+                                <option value="${c.categoryNo}">${c.categoryName}</option>
+                            </c:forEach>
                         </select>
                     </div>
 
@@ -189,7 +174,7 @@
                         <div class="content">
                             <div class="content-row">
                                 <div class="content-row__btn">
-                                    <input name="groupType" value="" type="radio" id="private">
+                                    <input name="groupType" value="C" type="radio" id="private">
                                     <label for="private">비공개 그룹</label>
                                 </div>
                                 <div class="content-row__desc">그룹과 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.</div>
@@ -197,18 +182,23 @@
                             <div class="content-row">
                                 <div class="content-row__btn">
                                     <input name="groupType" value="B" type="radio" id="public">
-                                    <label for="public">그룹명 공개 밴드</label> 
+                                    <label for="public">그룹명 공개 그룹</label> 
                                 </div>
                                 <div class="content-row__desc">누구나 그룹을 검색으로 찾아 그룹 소개를 볼 수 있지만, 게시글은 멤버만 볼 수 있습니다.</div>
                             </div>
                             <div class="content-row">
                                 <div class="content-row__btn">
                                     <input name="groupType" value="A" type="radio" id="public-toAll">
-                                    <label for="public-toAll">공개 밴드</label>
+                                    <label for="public-toAll">공개 그룹</label>
                                 </div>
                                 <div class="content-row__desc">누구나 그룹을 검색해 찾을 수 있고, 그룹 소개와 게시글을 볼 수 있습니다.</div>
                             </div>
                         </div>
+
+                        <script>
+                            // 기본으로 공개 그룹으로 설정
+                            $('#public-toAll').prop('checked', true);
+                        </script>
                     </div>
 
                     <div class="button-area">
