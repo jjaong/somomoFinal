@@ -1,6 +1,9 @@
 package com.kh.somomo.group.controller;
 
 
+import static com.kh.somomo.common.template.FileRename.saveFile;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,15 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.somomo.common.model.vo.PageInfo;
+import com.kh.somomo.common.template.Pagination;
 import com.kh.somomo.group.model.service.GroupService;
 import com.kh.somomo.group.model.vo.GroupMember;
 import com.kh.somomo.group.model.vo.GroupRoom;
 import com.kh.somomo.member.model.vo.Member;
-
-import static com.kh.somomo.common.template.FileRename.*;
 
 
 @Controller
@@ -27,23 +31,38 @@ public class GroupController {
 	@Autowired
 	private GroupService groupService;
 	
-	// 그룹방 목록 조회후 포워딩
-	// 1) 전체 그룹방 리스트(페이징 아직 X, or 똑같이 무한스크롤??), 2) 관리/가입한그룹방 리스트
-	@RequestMapping("list.gr")
-	public ModelAndView selectList(ModelAndView mv, HttpSession session) {
+	//그룹방 리스트 전체 화면
+	@RequestMapping("groupRoom.gr")
+	public ModelAndView selectGroupList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+										HttpSession session, ModelAndView mv) throws ParseException {
 		
+		PageInfo pi = Pagination.getPageInfo(groupService.selectGroupListCount(), currentPage, 10, 9); // 페이징처리
 		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
-		
-		mv.addObject("list", groupService.selectList())				  // 전체 그룹방 목록
-		  .addObject("myGroupList", groupService.myGroupList(userId)) // 내가 가입/관리하고있는 그룹방 목록 
+		mv.addObject("pi", pi)
+		  .addObject("myGroupList", groupService.myGroupList(userId))
+		  .addObject("gList", groupService.selectGroupCategoryList())
 		  .setViewName("group/community");
-		
+		System.out.println(pi);
 		return mv;
+	}
+	
+	//그룹방 리스트
+	@RequestMapping(value="list.gr")
+	public String groupList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+				 			Model model) throws ParseException {
+		PageInfo pi = Pagination.getPageInfo(groupService.selectGroupListCount(), currentPage, 10, 9); // 페이징처리
+		
+		ArrayList<GroupRoom> gList = groupService.selectList(pi);
+		model.addAttribute("list", gList);
+		System.out.println(gList);
+		return "group/groupList";
 	}
 	
 	// 그룹방 개설 페이지로 요청 처리
 	@RequestMapping("insertForm.gr")
-	public String insertForm() {
+	public String insertForm(Model model) {
+		model.addAttribute("rList",groupService.selectRegionCategoryList())
+			 .addAttribute("gList", groupService.selectGroupCategoryList());
 		return "group/createGroup";
 	}
 	

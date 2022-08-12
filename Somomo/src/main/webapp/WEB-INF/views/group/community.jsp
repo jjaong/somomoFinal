@@ -10,13 +10,14 @@
     
     <!----------- CSS --------------->
     <link rel="stylesheet" href="resources/css/header.css?ver=1.0.1">
-    <link rel="stylesheet" href="resources/css/groupList.css?ver=1.2.3">
+    <link rel="stylesheet" href="resources/css/groupList.css?ver=1.3.4">
     <!----------- 아이콘 CSS 링크 ------->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <script src="https://kit.fontawesome.com/567fbbaed5.js" crossorigin="anonymous"></script>
     <!----------- 아이콘 CSS 링크 version 2------->
     <title>그룹리스트</title> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>그룹리스트</title> 
 </head>
 <body>
     <div class="wrapper">
@@ -85,15 +86,15 @@
             </div>
         </nav>
 		
-		<c:forEach var="g" items="${myGroupList}">
+		<c:forEach var="mg" items="${myGroupList}">
 			<script>
                 var result = '<div class="nav-group-list">'
-                                + '<input type="hidden" value="${g.groupNo}">'
-                                + '<img src="${g.groupImg}" alt="">'
-                                + '<span class="admingroup-name">${g.groupName}</span>'
+                                + '<input type="hidden" value="${mg.groupNo}">'
+                                + '<img src="${mg.groupImg}" alt="">'
+                                + '<span class="admingroup-name">${mg.groupName}</span>'
                             + '</div>';
 
-                if('${g.userRank}' == 'A'){
+                if('${mg.userRank}' == 'A'){
                     $('.adminGroup').append(result);
                 } 
                 else{
@@ -118,71 +119,109 @@
                 $('.memberGroup').append(guide);
             }
         </script>
-
+		
+		
+		<!-- 메인  (그룹방 리스트) -->
         <main class="content">
-            
             <div class="list-outer">
-                <div class="tag-group">
-                    <ul class="tag-body">
-                        <li class="category-list">그룹 전체</li>
-                        <li class="category-list">#개발</li>
-                        <li class="category-list">#여행</li>
-                        <li class="category-list">#운동</li>
-                    </ul>
-                </div>
-
-                <div class="group-outer">
-
-                    <c:forEach var="g" items="${list}">
-                        <div class="group">
-                            <div class="group-main">
-                                <input type="hidden" value="${g.groupNo}">
-                                <div class="group-header">
-                                    <img src="${g.groupImg}" alt="rover" />
-                                </div>
-                                <div class="group-body">
-                                    <span class="tag tag-development">${g.categoryNo}</span>
-                                    <h4>
-                                        ${g.groupName}
-                                    </h4>
-                                    <div class="group-info">
-                                        <span class="group-member">멤버 ${g.memberCount}명</span>
-                                        <span>${g.groupType}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="group-foot">
-                                <div class="group-btn">
-                                    <button>그룹 가입</button>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
+		         <div class="tag-group">
+		             <ul class="tag-body">
+		                 <li class="all-category-list">그룹 전체</li>
+		             	 <c:forEach var="gc" items="${gList}">
+							<li class="category-list" value="${gc.categoryName}">#${gc.categoryName}</li>
+						 </c:forEach>
+		             </ul>
+		         </div>
+                 <div class="group-outer">
+                 
+                 </div>
             </div>
-            
         </main>
-    </section>
+    
+    
+    
     
     <script>
-        $('.group-main').click(function(){
-            const groupNo = $(this).children().eq(0).val();
+    	<!--무한스크롤 페이징-->
+	    $(function(){
+			let currentPage = ${pi.currentPage};
+			console.log('시작:'+currentPage);
+			selectGroupList(currentPage);
+			
+			//스크롤 할 때마다 호출되는 함수
+			$(window).on('scroll', function(){
+				if(${pi.maxPage eq 0}){
+					return; //등록된 게시글이 없을 경우 종료
+				}
+				//위로 스크롤된 길이
+				let scrollTop = $(window).scrollTop();
+				//웹 브라우저 창의 높이
+				let windowHeight = $(window).height();
+				//문서 전체의 높이
+				let documentHeight = $(document).height();
+				//바닥까지 스크롤
+				let isBottom = scrollTop + windowHeight  >= documentHeight;
+				
+				if(isBottom){
+					if(currentPage == ${pi.maxPage}){
+						return; //마지막 페이지라면 끝
+					}
+					
+					currentPage ++;//요청 페이지 번호 1증가
+					
+					selectGroupList(currentPage);
+				
+				}
+	    	});
+	    });
+	    
+	    <!-- 그룹 리스트 ajax -->
+	    function selectGroupList(currentPage){
+	    	
+	    	console.log('요청'+currentPage);
+	    	
+	    	$.ajax({
+	    		url:'list.gr',
+	    		method:'POST',
+	    		data : {
+    				userId : '${loginUser.userId}',
+    				cpage : currentPage
+    			},
+    			success : function(result){
+    				
+    				$('.group-outer').append(result);
+    				
+    				
+	    			//카테고리 클릭시 카테고리별 리스트 ??????? 고민중
+   					/*$('.tag-group ul li').click(function(){
+   						
+	    				//클릭하는 li의 catgoryNo와 게시물의 categoryNo가 같다면  ????
+	    				if('${g.categoryNo}' == $(this).val()){ 
+	    					$('.group-outer *').remove();
+		    				$('.group-outer').append(result);
+	    				}
+	    				
+   					})*/
+   					
+    					
+    				//관리자면 게시글 삭제 가능
+    				
+    			}
+	    	});
+	    }
+	    
 
-            location.href = "groupDetail.gr?groupNo=" + groupNo;
-        })
+		//그룹방 클릭시 상세 페이지로 이동
+		$('.group').click(function(){
+	            const groupNo = $(this).children().eq(0).val();
+
+	            location.href = "groupDetail.gr?groupNo=" + groupNo;
+	    });
+		
+	    
+	    
     </script>
 
-    <script>
-        $('.nav-group-list').click(function(){
-            const groupNo = $(this).children().eq(0).val();
-            
-            location.href = "groupDetail.gr?groupNo=" + groupNo;
-        })
-    </script>
-
-    <script>
-        
-    </script>
-
+	</section>
     </body>
 </html>

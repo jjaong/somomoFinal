@@ -23,6 +23,43 @@
 		<result column="NICKNAME" property="nickname"/> 
 	</resultMap>
 	
+	<resultMap id="groupCategoryResultSet" type="groupCategory">
+		<result column="CATEGORY_NO" property="categoryNo" />
+		<result column="CATEGORY_NAME" property="categoryName" />
+	</resultMap>
+	
+	<resultMap id="regionCategoryResultSet" type="regionCategory">
+		<result column="REGION_NO" property="regionNo" />
+		<result column="REGION_NAME" property="regionName" />
+	</resultMap>
+	
+	
+	
+	
+	<select id="selectGroupListCount" resultType="_int">
+		SELECT 
+		       COUNT(*) 
+		  FROM 
+		       GROUP_ROOM 
+	</select>
+	
+	<select id="selectRegionList" resultMap="regionCategoryResultSet">
+		SELECT 
+			   REGION_NO,
+			   REGION_NAME
+		  FROM 
+		       REGION_CATEGORY
+	</select>
+	
+	
+	<select id="selectGroupList" resultMap="groupCategoryResultSet">
+		SELECT 
+			   CATEGORY_NO,
+			   CATEGORY_NAME
+		  FROM 
+		       GROUP_CATEGORY
+	</select>
+	
 	<select id="selectList" resultMap="groupResultSet">
 		SELECT 
 		       R.GROUP_NO, 
