@@ -35,6 +35,10 @@
 	</resultMap>
 	
 	
+	
+
+	
+	
 	<select id="selectGroupListCount" resultType="_int">
 		SELECT 
 		       COUNT(*) 
@@ -105,6 +109,62 @@
     	    BY GROUP_NO DESC
 	</select>
 	
+	
+		
+	<select id="selectCategoryGroup" resultMap="groupResultSet">
+		SELECT 
+		       R.GROUP_NO, 
+		       REGION_NAME, 
+		       CATEGORY_NAME, 
+		       GROUP_NAME, 
+		       GROUP_IMG, 
+		       GROUP_DETAIL , 
+		       DECODE(GROUP_TYPE, 'A', '공개', '비공개') GROUP_TYPE, 
+		       GROUP_DATE, 
+		       COUNT(M.GROUP_NO) MEMBER_COUNT
+		  FROM 
+		       GROUP_ROOM R
+		  LEFT 
+		  JOIN 
+		       REGION_CATEGORY USING(REGION_NO)
+		  LEFT 
+		  JOIN 
+		       GROUP_CATEGORY USING(CATEGORY_NO)
+		  LEFT 
+		  JOIN 
+		       GROUP_MEMBER M ON(R.GROUP_NO = M.GROUP_NO)
+		  <if test= "keyword != '그룹 전체'">
+		  	   WHERE CATEGORY_NAME = #{keyword} 
+		  </if>
+		  <if test="keyword =='그룹 전체'">
+		  		WHERE 1=1
+		  </if>
+		 GROUP 
+		    BY 
+		       R.GROUP_NO, 
+		       REGION_NAME, 
+		       CATEGORY_NAME, 
+		       GROUP_DETAIL,
+		       GROUP_NAME, 
+		       GROUP_IMG, 
+		       GROUP_TYPE, 
+		       GROUP_DATE
+		 ORDER 
+		    BY GROUP_NO DESC
+	</select>
+	
+	<select id="searchGroup" resultMap="groupResultSet">
+		SELECT R.GROUP_NO, REGION_NO, REGION_NAME, CATEGORY_NO, CATEGORY_NAME, GROUP_NAME, GROUP_IMG, GROUP_DETAIL , DECODE(GROUP_TYPE, 'A', '공개', '비공개') GROUP_TYPE, GROUP_DATE, COUNT(M.GROUP_NO) MEMBER_COUNT
+		FROM GROUP_ROOM R
+		LEFT JOIN REGION_CATEGORY USING(REGION_NO)
+		LEFT JOIN GROUP_CATEGORY USING(CATEGORY_NO)
+		LEFT JOIN GROUP_MEMBER M ON(R.GROUP_NO = M.GROUP_NO)
+		WHERE GROUP_NAME LIKE '%' || #{search} || '%'
+		GROUP BY R.GROUP_NO, REGION_NO, REGION_NAME, CATEGORY_NO, CATEGORY_NAME, GROUP_DETAIL ,GROUP_NAME, GROUP_IMG, GROUP_TYPE, GROUP_DATE
+		ORDER BY GROUP_NO DESC
+	</select>
+	
+	
 	<insert id="insertGroup" parameterType="groupRoom">
 		INSERT 
 			INTO GROUP_ROOM
@@ -173,18 +233,19 @@
 		       R.GROUP_NO, 
 		       REGION_NO, 
 		       CATEGORY_NO, 
-		       GROUP_NAME,
+		       GROUP_NAME, 
 		       GROUP_DETAIL, 
 		       GROUP_IMG, 
-		       GROUP_TYPE, 
+		       DECODE(GROUP_TYPE, 'A', '공개', 'B', '그룹명 공개', 'C', '비공개')GROUP_TYPE, 
 		       GROUP_DATE, 
 		       COUNT(M.GROUP_NO) MEMBER_COUNT
   		  FROM 
   		       GROUP_ROOM R
-  		  LEFT 
-  		       JOIN GROUP_MEMBER M ON(R.GROUP_NO = M.GROUP_NO)
-  	     WHERE 
-  	           R.GROUP_NO = #{groupNo}
+  	      LEFT 
+  	      JOIN 
+  	           GROUP_MEMBER M ON(R.GROUP_NO = M.GROUP_NO)
+ 		 WHERE 
+ 		       R.GROUP_NO = #{groupNo}
  		 GROUP 
  		    BY 
  		       R.GROUP_NO, 
@@ -192,7 +253,7 @@
  		       CATEGORY_NO, 
  		       GROUP_NAME, 
  		       GROUP_DETAIL, 
- 		       GROUP_IMG, 
+ 		       GROUP_IMG,
  		       GROUP_TYPE, 
  		       GROUP_DATE
 	</select>
@@ -213,4 +274,33 @@
  	        BY 
  	           USER_RANK ASC
 	</select>
+	
+	<update id="updateGroup" parameterType="groupRoom">
+		UPDATE 
+       		   GROUP_ROOM
+   	 	   SET 
+       		   REGION_NO = #{regionNo},
+       		   CATEGORY_NO = #{categoryNo},
+       		   GROUP_NAME = #{groupName},
+       		   GROUP_DETAIL = #{groupDetail},
+       		   GROUP_IMG = #{groupImg}
+ 		 WHERE
+       		   GROUP_NO = #{groupNo}
+	</update>
+	
+	<update id="updateType" parameterType="groupRoom">
+		UPDATE
+		       GROUP_ROOM
+		   SET
+		       GROUP_TYPE = #{groupType}
+		 WHERE 
+		       GROUP_NO = #{groupNo}
+	</update>
+	
+	<delete id="deleteGroup" parameterType="_int">
+		DELETE
+		       GROUP_ROOM
+		 WHERE
+		       GROUP_NO = ${groupNo}
+	</delete>
 </mapper>

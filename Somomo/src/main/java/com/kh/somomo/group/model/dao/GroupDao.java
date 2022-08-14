@@ -1,6 +1,7 @@
 package com.kh.somomo.group.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -27,13 +28,8 @@ public class GroupDao {
 		return (ArrayList)sqlSession.selectList("groupMapper.selectGroupCategoryList");
 	}
 
-	public ArrayList<GroupRoom> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		int limit = pi.getBoardLimit();
-		
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		return (ArrayList)sqlSession.selectList("groupMapper.selectList", null, rowBounds);
+	public ArrayList<GroupRoom> selectList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("groupMapper.selectList");
 	}
 	
 	public ArrayList<GroupRoom> myGroupList(SqlSessionTemplate sqlSession, String userId) {
@@ -42,6 +38,14 @@ public class GroupDao {
 	
 	public int insertGroup(SqlSessionTemplate sqlSession, GroupRoom gr) {
 		return sqlSession.insert("groupMapper.insertGroup", gr);
+	}
+	public ArrayList<GroupRoom> selectCategoryGroup(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("groupMapper.selectCategoryGroup", keyword);
+	}
+	
+	public ArrayList<GroupRoom> searchGroup(SqlSessionTemplate sqlSession, String search) {
+		
+		return (ArrayList)sqlSession.selectList("groupMapper.searchGroup", search);
 	}
 
 	public int insertMember(SqlSessionTemplate sqlSession, GroupMember gm) {
@@ -62,5 +66,18 @@ public class GroupDao {
 	public ArrayList<GroupMember> selectMemberList(SqlSessionTemplate sqlSession, int groupNo) {
 		return (ArrayList)sqlSession.selectList("groupMapper.selectMemberList", groupNo);
 	}
+
+	public int updateGroup(SqlSessionTemplate sqlSession, GroupRoom g) {
+		return sqlSession.update("groupMapper.updateGroup", g);
+	}
+
+	public int deleteGroup(SqlSessionTemplate sqlSession, int groupNo) {
+		return sqlSession.delete("groupMapper.deleteGroup", groupNo);
+	}
+
+	public int updateType(SqlSessionTemplate sqlSession, GroupRoom g) {
+		return sqlSession.update("groupMapper.updateType", g);
+	}
+
 
 }

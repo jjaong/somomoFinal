@@ -1,6 +1,7 @@
 package com.kh.somomo.group.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.somomo.common.model.vo.PageInfo;
 import com.kh.somomo.common.model.vo.RegionCategory;
@@ -10,7 +11,7 @@ import com.kh.somomo.group.model.vo.GroupRoom;
 
 public interface GroupService {
 	
-	//------ 그룹방 리스트 조회 + 페이징 처리 ----- //
+	//------ 그룹방 리스트 조회 + 페이징 처리 ----- 아쉽게도 페이징 처리 아직...//
 	//그룹방 개수 조회
 	int selectGroupListCount();
 	
@@ -21,7 +22,13 @@ public interface GroupService {
 	ArrayList<GroupCategory> selectGroupCategoryList();
 	
 	//그룹방 리스트 조회
-	ArrayList<GroupRoom> selectList(PageInfo pi);
+	ArrayList<GroupRoom> selectList();
+	
+	//카테고리별 그룹방 조회
+	ArrayList<GroupRoom> selectCategoryGroup(String keyword);
+
+	//검색시 그룹방 조회
+	ArrayList<GroupRoom> searchGroup(String search);
 	
 	//관리 그룹방 리스트
 	ArrayList<GroupRoom> myGroupList(String userId);
@@ -46,6 +53,14 @@ public interface GroupService {
 	// 그룹방 멤버 리스트
 	ArrayList<GroupMember> selectMemberList(int groupNo);
 	
+	// ----------- 그룹방 설정 변경 및 삭제 --------- //
+	int updateGroup(GroupRoom g);
+	
+	int deleteGroup(int groupNo);
+	
+	int updateType(GroupRoom g);
+
+
 	// ------
 	// 그룹 가입 신청
 	//int applyGroup(GroupJoinApply applyInfo);

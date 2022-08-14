@@ -1,6 +1,7 @@
 package com.kh.somomo.group.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +40,24 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public ArrayList<GroupRoom> selectList(PageInfo pi) {
-		return groupDao.selectList(sqlSession, pi);
+	public ArrayList<GroupRoom> selectList() {
+		return groupDao.selectList(sqlSession);
 	}
 	
 	@Override
 	public ArrayList<GroupRoom> myGroupList(String userId) {
 		return groupDao.myGroupList(sqlSession, userId);
+	}
+	
+	@Override
+	public ArrayList<GroupRoom> selectCategoryGroup(String keyword) {
+		return groupDao.selectCategoryGroup(sqlSession, keyword);
+	}
+	
+	@Override
+	public ArrayList<GroupRoom> searchGroup(String search) {
+		// TODO Auto-generated method stub
+		return groupDao.searchGroup(sqlSession, search);
 	}
 	
 	@Override
@@ -77,6 +89,22 @@ public class GroupServiceImpl implements GroupService{
 	public ArrayList<GroupMember> selectMemberList(int groupNo) {
 		return groupDao.selectMemberList(sqlSession, groupNo);
 	}
+
+	@Override
+	public int updateGroup(GroupRoom g) {
+		return groupDao.updateGroup(sqlSession, g);
+	}
+
+	@Override
+	public int deleteGroup(int groupNo) {
+		return groupDao.deleteGroup(sqlSession, groupNo);
+	}
+
+	@Override
+	public int updateType(GroupRoom g) {
+		return groupDao.updateType(sqlSession, g);
+	}
+
 
 	
 	
