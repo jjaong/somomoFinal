@@ -61,7 +61,7 @@ public class FeedServiceImpl implements FeedService{
 	@Override
 	public int insertMeetBoard(FeedBoard fb) {
 		int result1 = feedDao.insertMeetBoard(sqlSession, fb);
-		int result2 = feedDao.insertChatRoom(sqlSession);
+		int result2 = feedDao.insertChatRoom(sqlSession, fb.getBoardTitle());
 		int result3 = feedDao.insertChatMember(sqlSession, fb.getBoardWriter());
 		return result1 * result2 * result3;
 	}
@@ -101,6 +101,11 @@ public class FeedServiceImpl implements FeedService{
 		return feedDao.deleteBoard(sqlSession, boardNo);
 	}
 
+	@Override
+	public int deleteAllAttachment(int boardNo) {
+		return feedDao.deleteAllAttachment(sqlSession, boardNo);
+	}
+	
 	@Override
 	public int insertNewAttachment(ArrayList<Attachment> atList) {
 		return 0;

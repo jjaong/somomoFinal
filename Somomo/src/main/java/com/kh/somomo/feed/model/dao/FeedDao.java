@@ -51,8 +51,8 @@ public class FeedDao {
 		return sqlSession.insert("feedMapper.insertMeetBoard", fb);
 	}
 
-	public int insertChatRoom(SqlSessionTemplate sqlSession) {
-		return sqlSession.insert("feedMapper.insertChatRoom");
+	public int insertChatRoom(SqlSessionTemplate sqlSession, String boardTitle) {
+		return sqlSession.insert("feedMapper.insertChatRoom", boardTitle);
 	}
 
 	public int insertChatMember(SqlSessionTemplate sqlSession, String boardWriter) {
@@ -83,6 +83,10 @@ public class FeedDao {
 		return sqlSession.update("feedMapper.deleteBoard", boardNo);
 	}
 
+	public int deleteAllAttachment(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.delete("feedMapper.deleteAllAttachment", boardNo);
+	}
+	
 	public int insertLike(SqlSessionTemplate sqlSession, Likes like) {
 		return sqlSession.insert("feedMapper.insertLike", like);
 	}

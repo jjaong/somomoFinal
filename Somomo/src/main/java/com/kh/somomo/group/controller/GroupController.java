@@ -259,7 +259,10 @@ public class GroupController {
 		return false;
 	}
 	
-	
+	@RequestMapping("calendar.gr")
+	public String calendarForm() {	
+		return "group/groupCalendar";
+	}
 	
 	
 	

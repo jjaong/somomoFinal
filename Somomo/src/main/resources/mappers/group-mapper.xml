@@ -71,7 +71,7 @@
 		       GROUP_NAME, 
 		       GROUP_IMG, 
 		       GROUP_DETAIL , 
-		       DECODE(GROUP_TYPE, 'A', '공개', '비공개') GROUP_TYPE, 
+		       DECODE(GROUP_TYPE, 'A', '공개', 'B', '그룹명 공개', 'C', '비공개')GROUP_TYPE,
 		       GROUP_DATE, 
 		       COUNT(M.GROUP_NO) MEMBER_COUNT
 		  FROM 
@@ -100,13 +100,26 @@
 	</select>
 	
 	<select id="myGroupList" parameterType="string" resultMap="groupResultSet">
-		SELECT GROUP_NO, GROUP_IMG, GROUP_NAME, USER_RANK
-  		  FROM GROUP_ROOM
-  		  JOIN GROUP_MEMBER USING(GROUP_NO)
- 		 WHERE USER_ID = #{userId}
- 		 GROUP BY GROUP_NO, GROUP_IMG, GROUP_NAME, USER_RANK
+		SELECT 
+			   GROUP_NO, 
+			   GROUP_IMG, 
+			   GROUP_NAME, 
+			   USER_RANK
+  		  FROM 
+  		       GROUP_ROOM
+  		  JOIN 
+  		       GROUP_MEMBER USING(GROUP_NO)
+ 		 WHERE 
+ 		       USER_ID = #{userId}
+ 		 GROUP 
+ 		    BY 
+ 		       GROUP_NO, 
+ 		       GROUP_IMG, 
+ 		       GROUP_NAME, 
+ 		       USER_RANK
  		 ORDER 
-    	    BY GROUP_NO DESC
+    	    BY 
+    	       GROUP_NO DESC
 	</select>
 	
 	
@@ -119,7 +132,7 @@
 		       GROUP_NAME, 
 		       GROUP_IMG, 
 		       GROUP_DETAIL , 
-		       DECODE(GROUP_TYPE, 'A', '공개', '비공개') GROUP_TYPE, 
+		       DECODE(GROUP_TYPE, 'A', '공개', 'B', '그룹명 공개', 'C', '비공개')GROUP_TYPE,
 		       GROUP_DATE, 
 		       COUNT(M.GROUP_NO) MEMBER_COUNT
 		  FROM 
@@ -154,14 +167,46 @@
 	</select>
 	
 	<select id="searchGroup" resultMap="groupResultSet">
-		SELECT R.GROUP_NO, REGION_NO, REGION_NAME, CATEGORY_NO, CATEGORY_NAME, GROUP_NAME, GROUP_IMG, GROUP_DETAIL , DECODE(GROUP_TYPE, 'A', '공개', '비공개') GROUP_TYPE, GROUP_DATE, COUNT(M.GROUP_NO) MEMBER_COUNT
-		FROM GROUP_ROOM R
-		LEFT JOIN REGION_CATEGORY USING(REGION_NO)
-		LEFT JOIN GROUP_CATEGORY USING(CATEGORY_NO)
-		LEFT JOIN GROUP_MEMBER M ON(R.GROUP_NO = M.GROUP_NO)
-		WHERE GROUP_NAME LIKE '%' || #{search} || '%'
-		GROUP BY R.GROUP_NO, REGION_NO, REGION_NAME, CATEGORY_NO, CATEGORY_NAME, GROUP_DETAIL ,GROUP_NAME, GROUP_IMG, GROUP_TYPE, GROUP_DATE
-		ORDER BY GROUP_NO DESC
+		SELECT 
+		       R.GROUP_NO, 
+		       REGION_NO, 
+		       REGION_NAME, 
+		       CATEGORY_NO, 
+		       CATEGORY_NAME, 
+		       GROUP_NAME, 
+		       GROUP_IMG, 
+		       GROUP_DETAIL , 
+		       DECODE(GROUP_TYPE, 'A', '공개', 'B', '그룹명 공개', 'C', '비공개')GROUP_TYPE, 
+		       GROUP_DATE, 
+		       COUNT(M.GROUP_NO) MEMBER_COUNT
+		  FROM 
+		       GROUP_ROOM R
+		  LEFT 
+		  JOIN 
+		       REGION_CATEGORY USING(REGION_NO)
+		  LEFT 
+		  JOIN 
+		       GROUP_CATEGORY USING(CATEGORY_NO)
+		  LEFT 
+		  JOIN 
+		       GROUP_MEMBER M ON(R.GROUP_NO = M.GROUP_NO)
+		 WHERE 
+		       GROUP_NAME LIKE '%' || #{search} || '%'
+		 GROUP 
+		    BY 
+		       R.GROUP_NO, 
+		       REGION_NO, 
+		       REGION_NAME, 
+		       CATEGORY_NO, 
+		       CATEGORY_NAME, 
+		       GROUP_DETAIL,
+		       GROUP_NAME, 
+		       GROUP_IMG, 
+		       GROUP_TYPE, 
+		       GROUP_DATE
+		 ORDER 
+		    BY 
+		       GROUP_NO DESC
 	</select>
 	
 	
