@@ -260,7 +260,7 @@
                     	 			+ '<h4>'
                     	 			+  data[g].groupName+'</h4>'
                     	 			+ '<div class="group-info">'
-                    	 			+ '<span class="group-member">멤버 '+data[g].groupName+'명</span>'
+                    	 			+ '<span class="group-member">멤버 '+data[g].memberCount+'명</span>'
                     	 			+ '<span>'+data[g].groupType+'</span>'
                     	 			+ '</div>'
                     	 			+ '</div>'
@@ -277,6 +277,10 @@
                     	}
                     	$('.group-outer').html(result);
                     	//console.log(data);
+                    	
+                    	$('.group-main').click(function(){
+				            location.href = "detail.gr?gno=" + $(this).children().eq(0).val();
+				        })
                          
                   	}
               });
